@@ -6,403 +6,1470 @@
 <title>VOIDPULSE — WoW Midnight Intelligence Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
-:root {
-  --void:#0a0612;--deep:#0f0a1e;--mid:#140d2a;--surface:#1c1435;
-  --border:#2a1f4a;--glow-purple:#7c3aed;--glow-violet:#a855f7;
-  --glow-pink:#ec4899;--glow-cyan:#06b6d4;--glow-gold:#f59e0b;
-  --text-primary:#e2d9f3;--text-muted:#7c6fa0;--text-dim:#4a3f6b;--green:#22c55e;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--void);color:var(--text-primary);font-family:'Crimson Pro',Georgia,serif;font-size:17px;overflow-x:hidden;}
-.void-bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(124,58,237,0.15) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 80% 90%,rgba(168,85,247,0.1) 0%,transparent 50%),var(--void);pointer-events:none;}
-.stars{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
-.star{position:absolute;border-radius:50%;background:white;animation:twinkle var(--d,3s) ease-in-out infinite alternate;animation-delay:var(--delay,0s);}
-@keyframes twinkle{from{opacity:var(--min-op,0.1);}to{opacity:var(--max-op,0.7);}}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:linear-gradient(to bottom,rgba(10,6,18,0.97),transparent);backdrop-filter:blur(4px);border-bottom:1px solid rgba(42,31,74,0.5);}
-.nav-logo{font-family:'Cinzel Decorative',serif;font-size:20px;font-weight:900;background:linear-gradient(135deg,#c4b5fd,var(--glow-violet),var(--glow-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.nav-links{display:flex;gap:6px;list-style:none;flex-wrap:wrap;}
-.nav-links a{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;padding:6px 12px;border:1px solid transparent;transition:all 0.3s;}
-.nav-links a:hover{color:var(--glow-violet);border-color:var(--border);}
-.nav-badge{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;padding:5px 14px;border:1px solid var(--glow-purple);color:var(--glow-violet);text-transform:uppercase;white-space:nowrap;}
-.hero{position:relative;z-index:1;min-height:58vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 48px 60px;}
-.hero-eyebrow{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--glow-cyan);margin-bottom:20px;opacity:0;animation:fadeUp 0.8s ease 0.2s forwards;}
-.hero-title{font-family:'Cinzel Decorative',serif;font-size:clamp(44px,7vw,96px);font-weight:900;line-height:0.9;margin-bottom:12px;opacity:0;animation:fadeUp 1s ease 0.4s forwards;}
-.hero-title .t1{display:block;background:linear-gradient(135deg,#c4b5fd,var(--glow-violet),var(--glow-pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 32px rgba(168,85,247,0.4));}
-.hero-title .t2{display:block;font-family:'Cinzel',serif;font-size:0.38em;letter-spacing:0.28em;-webkit-text-fill-color:var(--text-muted);margin-top:10px;}
-.hero-desc{max-width:560px;font-size:18px;font-weight:300;font-style:italic;color:var(--text-muted);line-height:1.7;margin:24px auto 40px;opacity:0;animation:fadeUp 1s ease 0.6s forwards;}
-.hero-stats{display:flex;gap:40px;justify-content:center;opacity:0;animation:fadeUp 1s ease 0.8s forwards;}
-.hero-stat-num{font-family:'Cinzel Decorative',serif;font-size:28px;font-weight:700;color:var(--glow-violet);display:block;}
-.hero-stat-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);font-family:'Cinzel',serif;margin-top:4px;display:block;}
-.hero-divider{width:1px;height:36px;background:var(--border);align-self:center;}
-.ticker-wrap{display:flex;align-items:center;height:48px;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;position:relative;z-index:1;}
-.ticker-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;background:var(--glow-purple);color:white;padding:0 18px;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;}
-.ticker-scroll{overflow:hidden;flex:1;}
-.ticker-inner{display:flex;gap:56px;animation:ticker 35s linear infinite;white-space:nowrap;}
-.ticker-item{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;color:var(--text-muted);flex-shrink:0;}
-.ticker-item .up{color:var(--green);}.ticker-item .dn{color:var(--glow-pink);}.ticker-item .hi{color:var(--glow-gold);}
-@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-.section{position:relative;z-index:1;padding:90px 48px;}
-.section-alt{background:linear-gradient(to bottom,var(--void),var(--deep),var(--void));}
-.section-header{text-align:center;margin-bottom:56px;}
-.section-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:var(--glow-cyan);margin-bottom:12px;display:block;}
-.section-title{font-family:'Cinzel Decorative',serif;font-size:clamp(24px,3.5vw,40px);font-weight:700;color:var(--text-primary);margin-bottom:10px;}
-.section-sub{font-size:16px;font-style:italic;color:var(--text-muted);max-width:480px;margin:0 auto;}
-.updated-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:var(--text-dim);margin-top:10px;text-transform:uppercase;display:block;}
-.tab-bar{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin-bottom:40px;}
-.tab-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:8px 16px;background:transparent;color:var(--text-muted);border:1px solid var(--border);cursor:pointer;transition:all 0.3s;}
-.tab-btn:hover{border-color:var(--glow-violet);color:var(--glow-violet);}
-.tab-btn.active{background:var(--glow-purple);color:white;border-color:var(--glow-purple);}
-.prof-table{width:100%;max-width:1100px;margin:0 auto;border:1px solid var(--border);overflow:hidden;}
-.prof-table-header{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1fr 60px;background:var(--surface);padding:12px 20px;gap:12px;border-bottom:1px solid var(--border);}
-.prof-table-header span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-dim);}
-.prof-row{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1fr 60px;padding:14px 20px;gap:12px;align-items:center;border-bottom:1px solid rgba(42,31,74,0.5);background:var(--deep);transition:background 0.2s;}
-.prof-row:hover{background:var(--mid);}
-.prof-row:last-child{border-bottom:none;}
-.prof-item-name{font-family:'Cinzel',serif;font-size:13px;color:var(--text-primary);}
-.prof-item-sub{font-size:11px;color:var(--text-dim);font-style:italic;margin-top:2px;}
-.prof-price{font-family:'Cinzel Decorative',serif;font-size:16px;color:var(--glow-gold);}
-.prof-volume{font-family:'Cinzel',serif;font-size:12px;color:var(--text-muted);}
-.prof-change{font-family:'Cinzel',serif;font-size:10px;padding:3px 9px;border-radius:1px;text-align:center;white-space:nowrap;display:inline-block;}
-.chg-up{background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.25);}
-.chg-dn{background:rgba(236,72,153,0.12);color:var(--glow-pink);border:1px solid rgba(236,72,153,0.25);}
-.chg-st{background:rgba(74,63,107,0.2);color:var(--text-dim);border:1px solid var(--border);}
-.prof-rank{font-family:'Cinzel Decorative',serif;font-size:18px;color:var(--text-dim);text-align:center;}
-.prof-rank.r1{color:var(--glow-gold);}.prof-rank.r2{color:#9ca3af;}.prof-rank.r3{color:#cd7f32;}
-.housing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;max-width:1200px;margin:0 auto;}
-.housing-card{background:var(--deep);border:1px solid var(--border);padding:20px 24px;position:relative;overflow:hidden;transition:background 0.2s;}
-.housing-card:hover{background:var(--mid);}
-.housing-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--glow-violet);}
-.housing-rank{font-family:'Cinzel Decorative',serif;font-size:28px;font-weight:700;color:var(--text-dim);position:absolute;top:12px;right:16px;opacity:0.25;}
-.housing-name{font-family:'Cinzel',serif;font-size:14px;color:var(--text-primary);margin-bottom:4px;padding-right:32px;}
-.housing-cat{font-size:11px;color:var(--glow-violet);font-family:'Cinzel',serif;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;}
-.housing-price{font-family:'Cinzel Decorative',serif;font-size:20px;color:var(--glow-gold);}
-.housing-vol{font-size:11px;color:var(--text-dim);margin-top:4px;font-style:italic;}
-.tier-section-wrap{max-width:1000px;margin:0 auto;}
-.tier-group{margin-bottom:8px;}
-.tier-group-label{display:flex;align-items:center;gap:16px;padding:10px 20px;background:var(--surface);border:1px solid var(--border);border-bottom:none;}
-.tier-letter{font-family:'Cinzel Decorative',serif;font-size:28px;font-weight:900;width:36px;text-align:center;}
-.tl-s{color:#f59e0b;}.tl-a{color:#22c55e;}.tl-b{color:#06b6d4;}.tl-c{color:#a855f7;}.tl-d{color:#7c6fa0;}
-.tier-group-desc{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);}
-.tier-rows{border:1px solid var(--border);}
-.tier-row{display:grid;grid-template-columns:1fr 1fr 110px 80px 90px;padding:13px 20px;gap:12px;align-items:center;border-bottom:1px solid rgba(42,31,74,0.4);background:var(--deep);transition:background 0.2s;}
-.tier-row:hover{background:var(--mid);}
-.tier-row:last-child{border-bottom:none;}
-.tr-spec{font-family:'Cinzel',serif;font-size:13px;color:var(--text-primary);}
-.tr-class{font-size:11px;color:var(--text-dim);font-style:italic;margin-top:2px;}
-.tr-role{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:3px 9px;border-radius:1px;text-align:center;display:inline-block;}
-.role-dps{background:rgba(236,72,153,0.12);color:var(--glow-pink);border:1px solid rgba(236,72,153,0.25);}
-.role-heal{background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.25);}
-.role-tank{background:rgba(6,182,212,0.12);color:var(--glow-cyan);border:1px solid rgba(6,182,212,0.25);}
-.tr-change{font-family:'Cinzel',serif;font-size:10px;padding:3px 9px;border-radius:1px;text-align:center;display:inline-block;}
-.change-buffed{background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.25);}
-.change-nerfed{background:rgba(236,72,153,0.12);color:var(--glow-pink);border:1px solid rgba(236,72,153,0.25);}
-.change-stable{background:rgba(74,63,107,0.2);color:var(--text-dim);border:1px solid var(--border);}
-.tr-score{font-family:'Cinzel Decorative',serif;font-size:15px;color:var(--glow-violet);text-align:right;}
-.trinket-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;max-width:1400px;margin:0 auto;}
-.trinket-card{background:var(--deep);border:1px solid var(--border);padding:22px;position:relative;overflow:hidden;transition:background 0.2s;}
-.trinket-card:hover{background:var(--mid);}
-.trinket-card-top{position:absolute;top:0;left:0;right:0;height:2px;}
-.trinket-class-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:3px;}
-.trinket-spec-label{font-family:'Cinzel',serif;font-size:13px;color:var(--text-primary);margin-bottom:14px;}
-.trinket-rows{border-top:1px solid var(--border);}
-.trinket-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(42,31,74,0.4);}
-.trinket-row:last-child{border-bottom:none;}
-.trinket-tier{font-family:'Cinzel Decorative',serif;font-size:15px;font-weight:700;width:18px;text-align:center;flex-shrink:0;}
-.trinket-name{flex:1;font-family:'Cinzel',serif;font-size:12px;color:var(--text-primary);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.trinket-label{font-size:10px;color:var(--text-dim);font-style:italic;margin-top:1px;}
-.trinket-pct{font-family:'Cinzel',serif;font-size:11px;color:var(--text-muted);flex-shrink:0;}
-.empty-state{text-align:center;padding:60px;color:var(--text-dim);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;}
-footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
-.footer-logo{font-family:'Cinzel Decorative',serif;font-size:15px;font-weight:900;background:linear-gradient(135deg,var(--glow-violet),var(--glow-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.footer-note{font-size:12px;color:var(--text-dim);font-style:italic;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
-.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
-.fade-in.visible{opacity:1;transform:translateY(0);}
-@media(max-width:900px){
-  nav{padding:14px 20px;}.nav-links{display:none;}.section{padding:60px 20px;}
-  .prof-table-header,.prof-row{grid-template-columns:2fr 1fr 1fr;}
-  .tier-row{grid-template-columns:1fr 80px 80px;}.tr-class,.tr-score{display:none;}
-  footer{flex-direction:column;text-align:center;}
-}
+  :root {
+    --void: #0a0612;
+    --deep: #0f0a1e;
+    --mid: #140d2a;
+    --surface: #1c1435;
+    --border: #2a1f4a;
+    --glow-purple: #7c3aed;
+    --glow-violet: #a855f7;
+    --glow-pink: #ec4899;
+    --glow-cyan: #06b6d4;
+    --glow-gold: #f59e0b;
+    --text-primary: #e2d9f3;
+    --text-muted: #7c6fa0;
+    --text-dim: #4a3f6b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text-primary);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── ANIMATED VOID BACKGROUND ── */
+  .void-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124,58,237,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 90%, rgba(168,85,247,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(6,182,212,0.05) 0%, transparent 60%),
+      var(--void);
+    pointer-events: none;
+  }
+
+  .stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--d, 3s) ease-in-out infinite alternate;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes twinkle {
+    from { opacity: var(--min-op, 0.1); transform: scale(1); }
+    to { opacity: var(--max-op, 0.8); transform: scale(1.4); }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: linear-gradient(to bottom, rgba(10,6,18,0.95), transparent);
+    backdrop-filter: blur(2px);
+  }
+
+  .nav-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    background: linear-gradient(135deg, var(--glow-violet), var(--glow-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--glow-violet); }
+
+  .nav-badge {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 6px 16px;
+    border: 1px solid var(--glow-purple);
+    color: var(--glow-violet);
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 48px 80px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--glow-cyan);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(52px, 8vw, 110px);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.4s forwards;
+  }
+
+  .hero-title .line1 {
+    display: block;
+    background: linear-gradient(135deg, #c4b5fd 0%, var(--glow-violet) 40%, var(--glow-pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 40px rgba(168,85,247,0.4));
+  }
+
+  .hero-title .line2 {
+    display: block;
+    color: var(--text-primary);
+    font-size: 0.42em;
+    letter-spacing: 0.25em;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    margin-top: 12px;
+    -webkit-text-fill-color: var(--text-muted);
+  }
+
+  .hero-desc {
+    max-width: 580px;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 32px auto 48px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+    margin-bottom: 64px;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat-num {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--glow-violet);
+    display: block;
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-family: 'Cinzel', serif;
+    margin-top: 6px;
+    display: block;
+  }
+
+  .hero-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border);
+    align-self: center;
+  }
+
+  .scroll-hint {
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--glow-purple), transparent);
+    animation: pulse-line 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-line {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ── SECTION COMMON ── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 120px 48px;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .section-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--glow-cyan);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 18px;
+    font-style: italic;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ── FEATURES GRID ── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--border);
+  }
+
+  .feature-card {
+    background: var(--deep);
+    padding: 56px 48px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+    cursor: pointer;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--card-glow, rgba(124,58,237,0.06));
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-card:hover { background: var(--mid); }
+
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--card-accent, var(--glow-purple));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .feature-card:hover::after { transform: scaleX(1); }
+
+  .feature-num {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--card-accent, var(--glow-purple));
+    opacity: 0.12;
+    position: absolute;
+    top: 32px;
+    right: 40px;
+    transition: opacity 0.4s;
+  }
+
+  .feature-card:hover .feature-num { opacity: 0.22; }
+
+  .feature-icon {
+    font-size: 36px;
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .feature-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--card-accent, var(--glow-purple));
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .feature-title {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .feature-desc {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .feature-hooks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .feature-hooks li {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding-left: 20px;
+    position: relative;
+    font-style: italic;
+  }
+
+  .feature-hooks li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--card-accent, var(--glow-purple));
+    font-style: normal;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  .feature-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pill {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    border-radius: 1px;
+    transition: all 0.3s;
+  }
+
+  .feature-card:hover .pill {
+    border-color: var(--card-accent, var(--glow-purple));
+    color: var(--card-accent, var(--glow-purple));
+  }
+
+  /* ── LIVE TICKER ── */
+  .ticker-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .ticker-wrap {
+    display: flex;
+    align-items: center;
+    height: 52px;
+  }
+
+  .ticker-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    background: var(--glow-purple);
+    color: white;
+    padding: 0 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .ticker-scroll {
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .ticker-inner {
+    display: flex;
+    gap: 64px;
+    animation: ticker 30s linear infinite;
+    white-space: nowrap;
+  }
+
+  .ticker-item {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .ticker-item span {
+    color: var(--glow-gold);
+    margin-right: 6px;
+  }
+
+  .ticker-item .up { color: #22c55e; }
+  .ticker-item .down { color: var(--glow-pink); }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how-section {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .how-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .how-steps::before {
+    content: '';
+    position: absolute;
+    left: 32px;
+    top: 48px;
+    bottom: 48px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--glow-purple), var(--glow-pink), var(--glow-cyan));
+    opacity: 0.3;
+  }
+
+  .how-step {
+    display: flex;
+    gap: 48px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .how-step:last-child { border-bottom: none; }
+
+  .how-step-num {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--glow-violet);
+    background: var(--deep);
+    position: relative;
+    z-index: 1;
+  }
+
+  .how-step-content { flex: 1; padding-top: 8px; }
+
+  .how-step-title {
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .how-step-desc {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ── MARKET PREVIEW ── */
+  .market-section {
+    background: linear-gradient(to bottom, var(--void), var(--deep), var(--void));
+  }
+
+  .market-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .market-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .market-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--card-line, var(--glow-purple));
+  }
+
+  .market-card-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+
+  .market-item-name {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .market-price {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--glow-gold);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .market-change {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .change-up { color: #22c55e; }
+  .change-down { color: var(--glow-pink); }
+
+  .market-bar {
+    margin-top: 16px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .market-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--bar-color, var(--glow-gold));
+    width: var(--bar-width, 60%);
+    transition: width 1s ease;
+  }
+
+  /* ── RARE SPAWN PREVIEW ── */
+  .spawn-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .spawn-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px;
+    text-align: center;
+    position: relative;
+  }
+
+  .spawn-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 1px;
+    margin-bottom: 16px;
+  }
+
+  .status-live { background: rgba(34,197,94,0.1); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
+  .status-soon { background: rgba(245,158,11,0.1); color: var(--glow-gold); border: 1px solid rgba(245,158,11,0.3); }
+  .status-unknown { background: rgba(124,58,237,0.1); color: var(--glow-violet); border: 1px solid rgba(124,58,237,0.3); }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: status-blink 2s ease infinite;
+  }
+
+  @keyframes status-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .spawn-name {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .spawn-zone {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .spawn-timer {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--glow-cyan);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .spawn-timer-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* ── TIER LIST PREVIEW ── */
+  .tier-table {
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .tier-header {
+    display: grid;
+    grid-template-columns: 80px 1fr 120px 80px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    gap: 16px;
+  }
+
+  .tier-header span {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .tier-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 120px 80px;
+    padding: 16px 24px;
+    gap: 16px;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: var(--deep);
+    transition: background 0.2s;
+  }
+
+  .tier-row:hover { background: var(--mid); }
+  .tier-row:last-child { border-bottom: none; }
+
+  .tier-badge {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .tier-s { color: #f59e0b; }
+  .tier-a { color: #22c55e; }
+  .tier-b { color: var(--glow-cyan); }
+  .tier-c { color: var(--glow-violet); }
+
+  .tier-spec {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    color: var(--text-primary);
+  }
+
+  .tier-spec-sub {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    margin-top: 2px;
+  }
+
+  .tier-change {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+    border-radius: 1px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .change-buffed { background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
+  .change-nerfed { background: rgba(236,72,153,0.15); color: var(--glow-pink); border: 1px solid rgba(236,72,153,0.3); }
+  .change-stable { background: rgba(74,63,107,0.2); color: var(--text-dim); border: 1px solid var(--border); }
+
+  .tier-score {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 16px;
+    color: var(--glow-violet);
+    text-align: right;
+  }
+
+  /* ── ALERT BOX ── */
+  .alert-box {
+    max-width: 700px;
+    margin: 48px auto 0;
+    background: rgba(245,158,11,0.08);
+    border: 1px solid rgba(245,158,11,0.25);
+    padding: 24px 32px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .alert-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .alert-content {}
+
+  .alert-title {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--glow-gold);
+    margin-bottom: 8px;
+  }
+
+  .alert-text {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── CTA SECTION ── */
+  .cta-section {
+    text-align: center;
+    padding: 160px 48px;
+  }
+
+  .cta-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--text-primary), var(--glow-violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .cta-desc {
+    font-size: 20px;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 48px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 16px 40px;
+    background: var(--glow-purple);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--glow-violet), var(--glow-pink));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .btn-primary:hover::before { opacity: 1; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(124,58,237,0.4); }
+
+  .btn-primary span { position: relative; z-index: 1; }
+
+  .btn-secondary {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 16px 40px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--glow-violet);
+    color: var(--glow-violet);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 16px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--glow-violet), var(--glow-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .footer-note {
+    font-size: 13px;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .footer-links a {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--glow-violet); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Card color variants */
+  .card-housing { --card-accent: #a855f7; --card-glow: rgba(168,85,247,0.08); }
+  .card-market  { --card-accent: #f59e0b; --card-glow: rgba(245,158,11,0.08); }
+  .card-meta    { --card-accent: #22c55e; --card-glow: rgba(34,197,94,0.08); }
+  .card-spawn   { --card-accent: #06b6d4; --card-glow: rgba(6,182,212,0.08); }
+
+  .mkt-housing { --card-line: #a855f7; }
+  .mkt-void    { --card-line: #06b6d4; }
+  .mkt-craft   { --card-line: #f59e0b; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .features-grid { grid-template-columns: 1fr; }
+    nav { padding: 16px 24px; }
+    nav .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    .market-grid { grid-template-columns: 1fr; }
+    .spawn-grid { grid-template-columns: 1fr 1fr; }
+    .hero-stats { gap: 24px; }
+    footer { flex-direction: column; gap: 24px; text-align: center; }
+    .tier-row, .tier-header { grid-template-columns: 60px 1fr 100px; }
+    .tier-score { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .spawn-grid { grid-template-columns: 1fr; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-stats { flex-wrap: wrap; }
+  }
 </style>
 </head>
 <body>
+
+<!-- BACKGROUND -->
 <div class="void-bg"></div>
 <div class="stars" id="stars"></div>
 
+<!-- NAV -->
 <nav>
   <span class="nav-logo">VOIDPULSE</span>
   <ul class="nav-links">
+    <li><a href="#features">Tools</a></li>
     <li><a href="#market">Market</a></li>
+    <li><a href="#tiers">Meta</a></li>
+    <li><a href="#spawns">Rares</a></li>
     <li><a href="#housing">Housing</a></li>
-    <li><a href="#tiers">Tier List</a></li>
-    <li><a href="#trinkets">Trinkets</a></li>
   </ul>
-  <div class="nav-badge" id="navBadge">Live · Midnight 2026</div>
+  <div class="nav-badge">Live · Midnight 2026</div>
 </nav>
 
-<div class="hero">
-  <span class="hero-eyebrow">World of Warcraft · Midnight Expansion · Personal Dashboard</span>
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-eyebrow">World of Warcraft · Midnight Expansion · AI-Powered Intelligence</span>
   <h1 class="hero-title">
-    <span class="t1">VOIDPULSE</span>
-    <span class="t2">Midnight Intelligence Hub</span>
+    <span class="line1">VOIDPULSE</span>
+    <span class="line2">Midnight Intelligence Hub</span>
   </h1>
-  <p class="hero-desc">Your personal live WoW dashboard. Profession markets, housing prices, hero talent tiers, and trinket rankings — auto-updated every 30 minutes from real game data.</p>
+  <p class="hero-desc">Four AI-driven tools that auto-update around the clock — tracking the Auction House, rare spawns, hero talent meta shifts, and the new Housing system.</p>
+
   <div class="hero-stats">
-    <div><span class="hero-stat-num" id="statListings">—</span><span class="hero-stat-label">AH Listings</span></div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">4</span>
+      <span class="hero-stat-label">AI Tools</span>
+    </div>
     <div class="hero-divider"></div>
-    <div><span class="hero-stat-num">11</span><span class="hero-stat-label">Professions</span></div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">30m</span>
+      <span class="hero-stat-label">Market Refresh</span>
+    </div>
     <div class="hero-divider"></div>
-    <div><span class="hero-stat-num">30m</span><span class="hero-stat-label">Refresh Rate</span></div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">24/7</span>
+      <span class="hero-stat-label">Auto-Updated</span>
+    </div>
     <div class="hero-divider"></div>
-    <div><span class="hero-stat-num">36+</span><span class="hero-stat-label">Specs Tracked</span></div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">∞</span>
+      <span class="hero-stat-label">SEO Pages</span>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Explore the Hub
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-section">
+  <div class="ticker-wrap">
+    <div class="ticker-label">⚡ Live Feed</div>
+    <div class="ticker-scroll">
+      <div class="ticker-inner" id="tickerInner"></div>
+    </div>
   </div>
 </div>
 
-<div class="ticker-wrap">
-  <div class="ticker-label">⚡ Live</div>
-  <div class="ticker-scroll"><div class="ticker-inner" id="tickerInner"></div></div>
-</div>
-
-<!-- PROFESSION MARKET -->
-<section class="section" id="market">
+<!-- FEATURES -->
+<section id="features">
   <div class="section-header fade-in">
-    <span class="section-tag">Auction House · All Professions</span>
-    <h2 class="section-title">Profession Market — Top 10 Per Craft</h2>
-    <p class="section-sub">Highest-volume sold items per profession, ranked by sales. Updated every 30 minutes from your realm's Auction House.</p>
-    <span class="updated-tag" id="marketUpdated">Last updated: —</span>
+    <span class="section-tag">Core Intelligence Systems</span>
+    <h2 class="section-title">Four Pillars of Midnight Data</h2>
+    <p class="section-sub">Each system runs autonomously, feeding your site with fresh, SEO-optimized content every hour.</p>
   </div>
-  <div class="tab-bar fade-in">
-    <button class="tab-btn active" onclick="switchProfTab('Blacksmithing',this)">Blacksmithing</button>
-    <button class="tab-btn" onclick="switchProfTab('Leatherworking',this)">Leatherworking</button>
-    <button class="tab-btn" onclick="switchProfTab('Tailoring',this)">Tailoring</button>
-    <button class="tab-btn" onclick="switchProfTab('Jewelcrafting',this)">Jewelcrafting</button>
-    <button class="tab-btn" onclick="switchProfTab('Alchemy',this)">Alchemy</button>
-    <button class="tab-btn" onclick="switchProfTab('Enchanting',this)">Enchanting</button>
-    <button class="tab-btn" onclick="switchProfTab('Engineering',this)">Engineering</button>
-    <button class="tab-btn" onclick="switchProfTab('Inscription',this)">Inscription</button>
-    <button class="tab-btn" onclick="switchProfTab('Mining',this)">Mining</button>
-    <button class="tab-btn" onclick="switchProfTab('Herbalism',this)">Herbalism</button>
-    <button class="tab-btn" onclick="switchProfTab('Skinning',this)">Skinning</button>
+
+  <div class="features-grid fade-in">
+    <!-- Housing -->
+    <div class="feature-card card-housing" id="housing">
+      <span class="feature-num">01</span>
+      <span class="feature-icon">🏛️</span>
+      <span class="feature-tag">Housing Directory</span>
+      <h3 class="feature-title">The Midnight Housing Directory</h3>
+      <p class="feature-desc">Thousands of furniture items, wallpapers, and trophies — each with an AI-generated acquisition guide, zone coordinates, and aesthetic category tag.</p>
+      <ul class="feature-hooks">
+        <li>"Where to find the Elven Canopy Bed"</li>
+        <li>"Best Void aesthetic furniture set"</li>
+        <li>"Silvermoon house lighting guide"</li>
+      </ul>
+      <div class="feature-pills">
+        <span class="pill">API Scraping</span>
+        <span class="pill">Screenshot AI</span>
+        <span class="pill">Map Coords</span>
+        <span class="pill">Auto-Pages</span>
+      </div>
+    </div>
+
+    <!-- Market -->
+    <div class="feature-card card-market" id="market">
+      <span class="feature-num">02</span>
+      <span class="feature-icon">📈</span>
+      <span class="feature-tag">Market Tracker</span>
+      <h3 class="feature-title">Void-Gold Market Tracker</h3>
+      <p class="feature-desc">Real-time Auction House ROI analysis. The AI scrapes every 30 minutes and auto-publishes "Market Alert" posts when profitable craft windows open.</p>
+      <ul class="feature-hooks">
+        <li>"Most profitable craft right now"</li>
+        <li>"Void-Sliver market crash alert"</li>
+        <li>"400% profit: Void-Infused Bracers"</li>
+      </ul>
+      <div class="feature-pills">
+        <span class="pill">AH API</span>
+        <span class="pill">Auto-Blog</span>
+        <span class="pill">X / Discord</span>
+        <span class="pill">ROI Engine</span>
+      </div>
+    </div>
+
+    <!-- Meta -->
+    <div class="feature-card card-meta" id="tiers">
+      <span class="feature-num">03</span>
+      <span class="feature-icon">⚔️</span>
+      <span class="feature-tag">Hero Talent Meta</span>
+      <h3 class="feature-title">Automated Meta Watch</h3>
+      <p class="feature-desc">Live tier lists powered by Raider.IO top-100 data and SimulationCraft. When Blizzard drops a hotfix, every affected guide updates instantly.</p>
+      <ul class="feature-hooks">
+        <li>"Best Hero Talents for Shadow Patch 12.0.5"</li>
+        <li>"Is Havoc DH viable in Midnight?"</li>
+        <li>"Fire Mage just got buffed"</li>
+      </ul>
+      <div class="feature-pills">
+        <span class="pill">SimulaCraft</span>
+        <span class="pill">Raider.IO</span>
+        <span class="pill">Hotfix Watch</span>
+        <span class="pill">Dynamic Tiers</span>
+      </div>
+    </div>
+
+    <!-- Spawn -->
+    <div class="feature-card card-spawn" id="spawns">
+      <span class="feature-num">04</span>
+      <span class="feature-icon">🎯</span>
+      <span class="feature-tag">Rare Spawn Tracker</span>
+      <h3 class="feature-title">The Rare Spawn Live Map</h3>
+      <p class="feature-desc">Crowd-sourced via Discord bots and addon data streams. AI calculates predictive spawn windows and creates a unique SEO page for every rare mob.</p>
+      <ul class="feature-hooks">
+        <li>"Is Void-Shaper Kalrix up right now?"</li>
+        <li>"Quel'thalas rare spawn timer"</li>
+        <li>"Expected window: next 14 minutes"</li>
+      </ul>
+      <div class="feature-pills">
+        <span class="pill">Discord Bot</span>
+        <span class="pill">Countdown Timer</span>
+        <span class="pill">SEO Pages</span>
+        <span class="pill">Crowdsource</span>
+      </div>
+    </div>
   </div>
-  <div id="profPanel" class="fade-in"><div class="empty-state">Awaiting data — run wow_updater_devan.py then press F5</div></div>
 </section>
 
-<!-- HOUSING -->
-<section class="section section-alt" id="housing">
+<!-- MARKET PREVIEW -->
+<section class="market-section">
   <div class="section-header fade-in">
-    <span class="section-tag">Housing Market · Top Decorations</span>
-    <h2 class="section-title">Top 10 Housing Decorations</h2>
-    <p class="section-sub">Highest-volume housing decoration sales on the Auction House right now.</p>
-    <span class="updated-tag" id="housingUpdated">Last updated: —</span>
+    <span class="section-tag">Void-Gold Tracker · Live Snapshot</span>
+    <h2 class="section-title">Current Market Pulse</h2>
+    <p class="section-sub">Simulated preview of what the auto-updated market dashboard looks like.</p>
   </div>
-  <div id="housingGrid" class="housing-grid fade-in"><div class="empty-state" style="grid-column:1/-1">Awaiting data — run wow_updater_devan.py then press F5</div></div>
+
+  <div class="market-grid fade-in">
+    <div class="market-card mkt-void">
+      <div class="market-card-label">🔥 Trending Craft</div>
+      <div class="market-item-name">Void-Infused Bracers</div>
+      <span class="market-price">2,840g</span>
+      <div class="market-change change-up">▲ 400% profit margin</div>
+      <div class="market-bar"><div class="market-bar-fill" style="--bar-width:85%; --bar-color: #22c55e;"></div></div>
+    </div>
+
+    <div class="market-card mkt-housing">
+      <div class="market-card-label">⚠️ Market Alert</div>
+      <div class="market-item-name">Void-Sliver (stack of 200)</div>
+      <span class="market-price" style="color: var(--glow-pink)">410g</span>
+      <div class="market-change change-down">▼ Down 20% last hour</div>
+      <div class="market-bar"><div class="market-bar-fill" style="--bar-width:28%; --bar-color: #ec4899;"></div></div>
+    </div>
+
+    <div class="market-card mkt-craft">
+      <div class="market-card-label">💡 Buy Opportunity</div>
+      <div class="market-item-name">Elven Silk Bolt ×50</div>
+      <span class="market-price">190g</span>
+      <div class="market-change change-up">▲ Below craft threshold</div>
+      <div class="market-bar"><div class="market-bar-fill" style="--bar-width:55%; --bar-color: #f59e0b;"></div></div>
+    </div>
+  </div>
+
+  <div class="alert-box fade-in">
+    <span class="alert-icon">⚡</span>
+    <div class="alert-content">
+      <div class="alert-title">AI Market Alert · Posted 14 minutes ago</div>
+      <p class="alert-text">"Alert: Void-Sliver prices have dropped 20% in the last hour. Crafting Void-Infused Bracers is currently at 400% profit margin. Window expected to close within 2–3 hours as supply adjusts."</p>
+    </div>
+  </div>
 </section>
 
-<!-- TIER LIST -->
-<section class="section" id="tiers">
+<!-- TIER LIST PREVIEW -->
+<section>
   <div class="section-header fade-in">
-    <span class="section-tag">Hero Talents · All 36 Specs · S through D</span>
-    <h2 class="section-title">Hero Talent Tier List</h2>
-    <p class="section-sub">Every spec ranked by Mythic+ performance. Grouped by tier. Filter by role.</p>
-    <span class="updated-tag" id="tierUpdated">Last updated: —</span>
+    <span class="section-tag">Hero Talent Meta · Patch 12.0.5</span>
+    <h2 class="section-title">Live Tier Snapshot</h2>
+    <p class="section-sub">Auto-updated from Raider.IO top-100 parses and hotfix blue posts.</p>
   </div>
-  <div class="tab-bar fade-in">
-    <button class="tab-btn active" onclick="switchRoleTab('All',this)">All Roles</button>
-    <button class="tab-btn" onclick="switchRoleTab('DPS',this)">DPS</button>
-    <button class="tab-btn" onclick="switchRoleTab('Healer',this)">Healer</button>
-    <button class="tab-btn" onclick="switchRoleTab('Tank',this)">Tank</button>
+
+  <div class="tier-table fade-in">
+    <div class="tier-header">
+      <span>Tier</span>
+      <span>Spec / Talent Build</span>
+      <span>Status</span>
+      <span>Score</span>
+    </div>
+    <div class="tier-row">
+      <div class="tier-badge tier-s">S</div>
+      <div><div class="tier-spec">Augmentation Evoker</div><div class="tier-spec-sub">Temporal Hero Path</div></div>
+      <div><span class="tier-change change-buffed">▲ Buffed</span></div>
+      <div class="tier-score">98.4</div>
+    </div>
+    <div class="tier-row">
+      <div class="tier-badge tier-s">S</div>
+      <div><div class="tier-spec">Shadow Priest</div><div class="tier-spec-sub">Void Corruption Tree</div></div>
+      <div><span class="tier-change change-stable">— Stable</span></div>
+      <div class="tier-score">96.1</div>
+    </div>
+    <div class="tier-row">
+      <div class="tier-badge tier-a">A</div>
+      <div><div class="tier-spec">Havoc Demon Hunter</div><div class="tier-spec-sub">Fel-Void Hybrid Path</div></div>
+      <div><span class="tier-change change-nerfed">▼ Nerfed</span></div>
+      <div class="tier-score">88.7</div>
+    </div>
+    <div class="tier-row">
+      <div class="tier-badge tier-a">A</div>
+      <div><div class="tier-spec">Fire Mage</div><div class="tier-spec-sub">Combustion Override</div></div>
+      <div><span class="tier-change change-buffed">▲ Buffed</span></div>
+      <div class="tier-score">85.2</div>
+    </div>
+    <div class="tier-row">
+      <div class="tier-badge tier-b">B</div>
+      <div><div class="tier-spec">Feral Druid</div><div class="tier-spec-sub">Moonfire Bleed Stack</div></div>
+      <div><span class="tier-change change-stable">— Stable</span></div>
+      <div class="tier-score">74.0</div>
+    </div>
+    <div class="tier-row">
+      <div class="tier-badge tier-c">C</div>
+      <div><div class="tier-spec">Beast Mastery Hunter</div><div class="tier-spec-sub">Packmaster Talents</div></div>
+      <div><span class="tier-change change-nerfed">▼ Nerfed</span></div>
+      <div class="tier-score">61.3</div>
+    </div>
   </div>
-  <div class="tier-section-wrap fade-in" id="tierList"><div class="empty-state">Awaiting data — run wow_updater_devan.py then press F5</div></div>
 </section>
 
-<!-- TRINKETS -->
-<section class="section section-alt" id="trinkets">
+<!-- RARE SPAWN PREVIEW -->
+<section style="background: linear-gradient(to bottom, var(--void), var(--deep), var(--void));">
   <div class="section-header fade-in">
-    <span class="section-tag">Trinket Intelligence · Per Spec</span>
-    <h2 class="section-title">Trinket Tier List — All Specs</h2>
-    <p class="section-sub">Top 4 trinkets per spec from top Warcraftlogs parses. S=60%+ · A=35%+ · B=15%+ · C=under 15%.</p>
-    <span class="updated-tag" id="trinketUpdated">Last updated: —</span>
+    <span class="section-tag">Rare Spawn Tracker · Quel'thalas & Void Rifts</span>
+    <h2 class="section-title">Live Spawn Windows</h2>
+    <p class="section-sub">Crowd-sourced death timestamps feed our AI timer predictor.</p>
   </div>
-  <div class="tab-bar fade-in">
-    <button class="tab-btn active" onclick="switchTrinketTab('Death Knight',this)">Death Knight</button>
-    <button class="tab-btn" onclick="switchTrinketTab('Demon Hunter',this)">Demon Hunter</button>
-    <button class="tab-btn" onclick="switchTrinketTab('Druid',this)">Druid</button>
-    <button class="tab-btn" onclick="switchTrinketTab('Evoker',this)">Evoker</button>
-    <button class="tab-btn" onclick="switchTrinketTab('Hunter',this)">Hunter</button>
-    <button class="tab-btn" onclick="switchTrinketTab('Mage',this)">Mage</button>
-    <button class="tab-btn" onclick="switchTrinketTab('Monk',this)">Monk</button>
-    <button class="tab-btn" onclick="switchTrinketTab('Paladin',this)">Paladin</button>
-    <button class="tab-btn" onclick="switchTrinketTab('Priest',this)">Priest</button>
-    <button class="tab-btn" onclick="switchTrinketTab('Rogue',this)">Rogue</button>
-    <button class="tab-btn" onclick="switchTrinketTab('Shaman',this)">Shaman</button>
-    <button class="tab-btn" onclick="switchTrinketTab('Warlock',this)">Warlock</button>
-    <button class="tab-btn" onclick="switchTrinketTab('Warrior',this)">Warrior</button>
+
+  <div class="spawn-grid fade-in">
+    <div class="spawn-card">
+      <div class="spawn-status status-live"><span class="status-dot"></span> Live Now</div>
+      <div class="spawn-name">Void-Shaper Kalrix</div>
+      <div class="spawn-zone">The Sunken Archives</div>
+      <span class="spawn-timer">ACTIVE</span>
+      <span class="spawn-timer-label">Confirmed up · 3 reports</span>
+    </div>
+    <div class="spawn-card">
+      <div class="spawn-status status-soon"><span class="status-dot"></span> Spawning Soon</div>
+      <div class="spawn-name">Riftborn Devourer</div>
+      <div class="spawn-zone">Void Fracture Zone</div>
+      <span class="spawn-timer" id="timer1">00:14:32</span>
+      <span class="spawn-timer-label">Expected window</span>
+    </div>
+    <div class="spawn-card">
+      <div class="spawn-status status-unknown"><span class="status-dot"></span> Unconfirmed</div>
+      <div class="spawn-name">Moonwhisper Ancient</div>
+      <div class="spawn-zone">Silvermoon Outskirts</div>
+      <span class="spawn-timer" style="color: var(--text-muted); font-size:16px;">Unknown</span>
+      <span class="spawn-timer-label">Last seen 6h ago</span>
+    </div>
+    <div class="spawn-card">
+      <div class="spawn-status status-soon"><span class="status-dot"></span> Spawning Soon</div>
+      <div class="spawn-name">Echo of Malygos</div>
+      <div class="spawn-zone">Crystalsong Rift</div>
+      <span class="spawn-timer" id="timer2">01:03:17</span>
+      <span class="spawn-timer-label">Predicted spawn</span>
+    </div>
+    <div class="spawn-card">
+      <div class="spawn-status status-live"><span class="status-dot"></span> Live Now</div>
+      <div class="spawn-name">Veil-Touched Harbinger</div>
+      <div class="spawn-zone">Ghostlands Breach</div>
+      <span class="spawn-timer">ACTIVE</span>
+      <span class="spawn-timer-label">1 report · Unverified</span>
+    </div>
+    <div class="spawn-card">
+      <div class="spawn-status status-unknown"><span class="status-dot"></span> Cooldown</div>
+      <div class="spawn-name">Dawnseeker Prime</div>
+      <div class="spawn-zone">Sunwell Plateau</div>
+      <span class="spawn-timer" id="timer3">04:28:55</span>
+      <span class="spawn-timer-label">Min respawn window</span>
+    </div>
   </div>
-  <div id="trinketPanel" class="fade-in"><div class="empty-state">Awaiting data — run wow_updater_devan.py then press F5</div></div>
 </section>
 
+<!-- HOW IT WORKS -->
+<section>
+  <div class="section-header fade-in">
+    <span class="section-tag">Architecture</span>
+    <h2 class="section-title">How the AI Automation Works</h2>
+    <p class="section-sub">A fully autonomous content engine running 24 hours a day.</p>
+  </div>
+
+  <div class="how-section fade-in">
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">1</div>
+        <div class="how-step-content">
+          <div class="how-step-title">Data Ingestion — WoW API + Community Sources</div>
+          <p class="how-step-desc">The AI simultaneously monitors the official WoW Game Data API for new item IDs, the Auction House API every 30 minutes, Raider.IO top-100 leaderboard data, SimulationCraft outputs, Blizzard blue post RSS feeds, and a dedicated Discord crowdsource channel for rare spawn reports.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">2</div>
+        <div class="how-step-content">
+          <div class="how-step-title">Content Generation — From Raw Data to SEO Pages</div>
+          <p class="how-step-desc">For each new item, the AI generates a complete "How to Acquire" page with map coordinates. For each market movement, it writes a 200-word Market Alert post. For each hotfix, it scans all affected spec guides and applies "Buffed" or "Nerfed" tags within minutes of the blue post going live.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">3</div>
+        <div class="how-step-content">
+          <div class="how-step-title">Distribution — Website + X + Discord</div>
+          <p class="how-step-desc">Generated content is published to the site automatically. Market alerts are simultaneously pushed to a Twitter/X bot and Discord server, driving referral traffic back to the full analysis. Rare spawn alerts ping a Discord channel with a direct link to the spawn's dedicated page.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">4</div>
+        <div class="how-step-content">
+          <div class="how-step-title">SEO Scale — Thousands of Unique Long-Tail Pages</div>
+          <p class="how-step-desc">Every rare mob, every housing item, and every spec patch combination generates a unique URL — capturing the long-tail searches that drive the highest-intent traffic. A single expansion can yield 50,000+ indexed pages without a single hour of manual writing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-title fade-in">Ready to Build?</h2>
+  <p class="cta-desc fade-in">This is the blueprint. Four systems, one site, fully automated. The Midnight expansion launched the traffic opportunity — VOIDPULSE is how you capture it.</p>
+  <div class="cta-buttons fade-in">
+    <button class="btn-primary"><span>View the Full Roadmap</span></button>
+    <button class="btn-secondary">Explore the Housing DB</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
   <span class="footer-logo">VOIDPULSE</span>
-  <span class="footer-note">Personal dashboard · Not affiliated with Blizzard Entertainment</span>
-  <span class="footer-note" id="footerTime"></span>
+  <span class="footer-note">Not affiliated with Blizzard Entertainment. Fan-made concept site.</span>
+  <div class="footer-links">
+    <a href="#">Housing</a>
+    <a href="#">Market</a>
+    <a href="#">Meta</a>
+    <a href="#">Spawns</a>
+  </div>
 </footer>
 
 <script>
-// Stars
-const se=document.getElementById('stars');
-for(let i=0;i<140;i++){const s=document.createElement('div');s.className='star';const z=Math.random()*2+0.4;s.style.cssText=`width:${z}px;height:${z}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*5}s;--min-op:${0.05+Math.random()*0.1};--max-op:${0.3+Math.random()*0.5};`;se.appendChild(s);}
-
-// Scroll fade
-const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.08});
-document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
-
-// Ticker
-const td=[{t:'AH MARKET',v:'Loading...',c:'hi'},{t:'TIER LIST',v:'Loading...',c:'hi'},{t:'TRINKETS',v:'Loading...',c:'hi'},{t:'HOUSING',v:'Loading...',c:'hi'}];
-const ti=document.getElementById('tickerInner');
-[...td,...td].forEach(d=>{const el=document.createElement('span');el.className='ticker-item';el.innerHTML=`<span class="${d.c}">${d.t}</span> &nbsp;${d.v} &nbsp;·`;ti.appendChild(el);});
-
-// Footer clock
-setInterval(()=>{document.getElementById('footerTime').textContent='Local: '+new Date().toLocaleTimeString();},1000);
-
-// Global data store
-window.VP={prof:{},housing:[],tiers:[],trinkets:{}};
-window.currentRole='All';
-window.currentProf='Blacksmithing';
-window.currentTrinketClass='Death Knight';
-
-const CLASS_COLORS={'Death Knight':'#C41E3A','Demon Hunter':'#A330C9','Druid':'#FF7C0A','Evoker':'#33937F','Hunter':'#AAD372','Mage':'#3FC7EB','Monk':'#00FF98','Paladin':'#F48CBA','Priest':'#CCCCCC','Rogue':'#FFF468','Shaman':'#0070DD','Warlock':'#8788EE','Warrior':'#C69B3A'};
-const TIER_COLORS={'S':'#f59e0b','A':'#22c55e','B':'#06b6d4','C':'#a855f7','?':'#4a3f6b'};
-const TIER_DESC={'S':'Best in class — dominant in all content','A':'Strong — competitive in most scenarios','B':'Solid — viable with good play','C':'Niche — situationally useful','D':'Struggling — significant disadvantages'};
-const TIER_CSS={'S':'tl-s','A':'tl-a','B':'tl-b','C':'tl-c','D':'tl-d'};
-
-function switchProfTab(prof,btn){
-  window.currentProf=prof;
-  btn.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderProf();
-}
-function switchRoleTab(role,btn){
-  window.currentRole=role;
-  btn.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderTiers();
-}
-function switchTrinketTab(cls,btn){
-  window.currentTrinketClass=cls;
-  btn.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderTrinkets();
+// ── STARS ──
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 160; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() * 2 + 0.5;
+  s.style.cssText = `
+    width:${size}px; height:${size}px;
+    top:${Math.random()*100}%; left:${Math.random()*100}%;
+    --d:${2+Math.random()*4}s;
+    --delay:${Math.random()*5}s;
+    --min-op:${0.05+Math.random()*0.15};
+    --max-op:${0.4+Math.random()*0.5};
+  `;
+  starsEl.appendChild(s);
 }
 
-function renderProf(){
-  const c=document.getElementById('profPanel');
-  const items=window.VP.prof[window.currentProf]||[];
-  if(!items.length){c.innerHTML='<div class="empty-state">No data for '+window.currentProf+' yet</div>';return;}
-  c.innerHTML=`<div class="prof-table">
-    <div class="prof-table-header"><span>Item</span><span>Lowest Price</span><span>Volume (24h)</span><span>Trend</span><span style="text-align:center">Rank</span></div>
-    ${items.map((it,i)=>`<div class="prof-row">
-      <div><div class="prof-item-name">${it.name}</div><div class="prof-item-sub">${it.sub||''}</div></div>
-      <div class="prof-price">${it.price}</div>
-      <div class="prof-volume">${it.volume}</div>
-      <div><span class="prof-change ${it.change_class}">${it.change_text}</span></div>
-      <div class="prof-rank ${i===0?'r1':i===1?'r2':i===2?'r3':''}">${i+1}</div>
-    </div>`).join('')}
-  </div>`;
+// ── TICKER ──
+const tickerItems = [
+  { label: 'VOID-INFUSED BRACERS', change: '+400%', dir: 'up' },
+  { label: 'VOID-SLIVER ×200', change: '-20%', dir: 'down' },
+  { label: 'KALRIX CONFIRMED LIVE', change: 'SPAWN', dir: 'up' },
+  { label: 'AUG EVOKER BUFFED', change: 'PATCH 12.0.5', dir: 'up' },
+  { label: 'ELVEN CANOPY BED', change: 'NEW ITEM', dir: 'up' },
+  { label: 'BM HUNTER', change: 'NERFED', dir: 'down' },
+  { label: 'RIFTBORN DEVOURER', change: '14m WINDOW', dir: 'up' },
+  { label: 'MOONWHISPER ANCIENT', change: 'UNCONFIRMED', dir: 'down' },
+  { label: 'ELVEN SILK BOLT ×50', change: 'BUY OPP', dir: 'up' },
+  { label: 'VOID FRACTURE ZONE', change: '3 RARES ACTIVE', dir: 'up' },
+];
+
+const inner = document.getElementById('tickerInner');
+[...tickerItems, ...tickerItems].forEach(item => {
+  const el = document.createElement('span');
+  el.className = 'ticker-item';
+  el.innerHTML = `<span>${item.label}</span> <span class="${item.dir === 'up' ? 'up' : 'down'}">${item.change}</span> ·`;
+  inner.appendChild(el);
+});
+
+// ── SCROLL FADE-IN ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ── COUNTDOWN TIMERS ──
+function parseTime(str) {
+  const [h, m, s] = str.split(':').map(Number);
+  return h * 3600 + m * 60 + s;
 }
 
-function renderTiers(){
-  const c=document.getElementById('tierList');
-  let data=window.VP.tiers;
-  if(!data.length){c.innerHTML='<div class="empty-state">Awaiting tier data</div>';return;}
-  if(window.currentRole!=='All') data=data.filter(d=>d.role===window.currentRole);
-  const tiers=['S','A','B','C','D'];
-  c.innerHTML=tiers.map(tier=>{
-    const specs=data.filter(d=>d.tier===tier);
-    if(!specs.length) return '';
-    return `<div class="tier-group">
-      <div class="tier-group-label">
-        <span class="tier-letter ${TIER_CSS[tier]}">${tier}</span>
-        <span class="tier-group-desc">${TIER_DESC[tier]} · ${specs.length} spec${specs.length!==1?'s':''}</span>
-      </div>
-      <div class="tier-rows">
-        ${specs.map(s=>`<div class="tier-row">
-          <div><div class="tr-spec">${s.spec}</div><div class="tr-class">${s.cls}</div></div>
-          <div><span class="tr-role ${s.role==='DPS'?'role-dps':s.role==='Healer'?'role-heal':'role-tank'}">${s.role}</span></div>
-          <div><span class="tr-change ${s.change_class}">${s.change}</span></div>
-          <div class="tr-score">${s.score}</div>
-        </div>`).join('')}
-      </div>
-    </div>`;
-  }).join('');
+function formatTime(total) {
+  if (total <= 0) return 'SPAWNING';
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = total % 60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
 }
 
-function renderTrinkets(){
-  const c=document.getElementById('trinketPanel');
-  const cls=window.currentTrinketClass;
-  const specData=window.VP.trinkets[cls];
-  if(!specData||!Object.keys(specData).length){c.innerHTML='<div class="empty-state">No trinket data for '+cls+' yet</div>';return;}
-  const color=CLASS_COLORS[cls]||'#a855f7';
-  c.innerHTML=`<div class="trinket-grid">${Object.entries(specData).map(([spec,trinkets])=>`
-    <div class="trinket-card">
-      <div class="trinket-card-top" style="background:${color}"></div>
-      <div class="trinket-class-label" style="color:${color}">${cls}</div>
-      <div class="trinket-spec-label">${spec}</div>
-      <div class="trinket-rows">
-        ${trinkets.map(t=>`<div class="trinket-row">
-          <span class="trinket-tier" style="color:${TIER_COLORS[t.tier]||'#4a3f6b'}">${t.tier}</span>
-          <div style="flex:1;min-width:0;">
-            <div class="trinket-name">${t.name}</div>
-            <div class="trinket-label">${t.change}</div>
-          </div>
-          <span class="trinket-pct">${t.pct}</span>
-        </div>`).join('')}
-      </div>
-    </div>`).join('')}</div>`;
-}
+const timers = [
+  { el: document.getElementById('timer1'), secs: parseTime('00:14:32') },
+  { el: document.getElementById('timer2'), secs: parseTime('01:03:17') },
+  { el: document.getElementById('timer3'), secs: parseTime('04:28:55') },
+];
 
-function renderHousing(){
-  const c=document.getElementById('housingGrid');
-  const items=window.VP.housing;
-  if(!items.length){c.innerHTML='<div class="empty-state" style="grid-column:1/-1">No housing data yet</div>';return;}
-  c.innerHTML=items.map((it,i)=>`
-    <div class="housing-card">
-      <div class="housing-rank">${i+1}</div>
-      <div class="housing-name">${it.name}</div>
-      <div class="housing-cat">${it.category}</div>
-      <div class="housing-price">${it.price}</div>
-      <div class="housing-vol">${it.volume} · ${it.change_text}</div>
-    </div>`).join('');
-}
-
-// Called by the updater script when it writes fresh data
-window.loadVoidpulseData=function(data){
-  const ts=data.updated||new Date().toLocaleTimeString();
-  if(data.listings) document.getElementById('statListings').textContent=Number(data.listings).toLocaleString();
-  document.getElementById('navBadge').textContent='Live · '+ts;
-  ['marketUpdated','housingUpdated','tierUpdated','trinketUpdated'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.textContent='Last updated: '+ts;
+setInterval(() => {
+  timers.forEach(t => {
+    t.secs = Math.max(0, t.secs - 1);
+    t.el.textContent = formatTime(t.secs);
   });
-  if(data.prof){window.VP.prof=data.prof; renderProf();}
-  if(data.housing){window.VP.housing=data.housing; renderHousing();}
-  if(data.tiers){window.VP.tiers=data.tiers; renderTiers();}
-  if(data.trinkets){window.VP.trinkets=data.trinkets; renderTrinkets();}
-  // Update ticker
-  if(data.prof){
-    const profKeys=Object.keys(data.prof);
-    if(profKeys.length){
-      const first=data.prof[profKeys[0]];
-      if(first&&first[0]) document.querySelectorAll('.ticker-item')[0].innerHTML=`<span class="hi">TOP CRAFT</span> &nbsp;${first[0].name} — ${first[0].price} &nbsp;·`;
-    }
-  }
-};
+}, 1000);
 </script>
 
 <!-- VOIDPULSE AUTO-DATA — regenerated every 30 min by wow_updater_devan.py -->
 <script>
 (function(){
-  var data={"listings": 140417, "updated": "20:06:14 · 14 Mar 2026", "prof": {"Blacksmithing": [{"name": "Courtly Shoulders", "sub": "", "price": "20g", "volume": "392", "change_class": "chg-up", "change_text": "▲ 125% below median"}, {"name": "Courtly Cloak", "sub": "", "price": "35g", "volume": "229", "change_class": "chg-up", "change_text": "▲ 1014% below median"}, {"name": "Gleaming Copper Band", "sub": "", "price": "40g", "volume": "229", "change_class": "chg-up", "change_text": "▲ 2395% below median"}, {"name": "Smuggler's Reinforced Hood", "sub": "", "price": "39g", "volume": "185", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Courtly Robes", "sub": "", "price": "36g", "volume": "184", "change_class": "chg-up", "change_text": "▲ 28% below median"}, {"name": "Tarnished Dawnlit Spellbinder's Sash", "sub": "", "price": "55g", "volume": "181", "change_class": "chg-up", "change_text": "▲ 106% below median"}, {"name": "Tarnished Dawnlit Loop", "sub": "", "price": "100g", "volume": "161", "change_class": "chg-up", "change_text": "▲ 156% below median"}, {"name": "Tarnished Dawnlit Spellbinder's Trousers", "sub": "", "price": "42g", "volume": "156", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Tarnished Dawnlit Pendant", "sub": "", "price": "40g", "volume": "156", "change_class": "chg-up", "change_text": "▲ 2198% below median"}, {"name": "Tarnished Dawnlit Commander's Gauntlets", "sub": "", "price": "41g", "volume": "154", "change_class": "chg-up", "change_text": "▲ 1097% below median"}], "Leatherworking": [{"name": "Smuggler's Reinforced Hood", "sub": "", "price": "39g", "volume": "185", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Evercore Shade", "sub": "", "price": "30g", "volume": "154", "change_class": "chg-up", "change_text": "▲ 43% below median"}, {"name": "Tarnished Dawnlit Sentinel's Armguards", "sub": "", "price": "41g", "volume": "126", "change_class": "chg-up", "change_text": "▲ 1447% below median"}, {"name": "Benefactor's Gauntlets", "sub": "", "price": "401g", "volume": "123", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Tarnished Dawnlit Sentinel's Cover", "sub": "", "price": "40g", "volume": "120", "change_class": "chg-up", "change_text": "▲ 1151% below median"}, {"name": "Scout's Polished Skullcap", "sub": "", "price": "40g", "volume": "113", "change_class": "chg-up", "change_text": "▲ 2400% below median"}, {"name": "Tarnished Dawnlit Sentinel's Epaulets", "sub": "", "price": "44g", "volume": "112", "change_class": "chg-up", "change_text": "▲ 180% below median"}, {"name": "Smuggler's Leather Wristbands", "sub": "", "price": "25g", "volume": "105", "change_class": "chg-up", "change_text": "▲ 3900% below median"}, {"name": "Tarnished Dawnlit Sentinel's Handguards", "sub": "", "price": "30g", "volume": "101", "change_class": "chg-up", "change_text": "▲ 4166% below median"}, {"name": "Smuggler's Reinforced Shoulderguards", "sub": "", "price": "360g", "volume": "99", "change_class": "chg-up", "change_text": "▲ 455% below median"}], "Tailoring": [{"name": "Courtly Shoulders", "sub": "", "price": "20g", "volume": "392", "change_class": "chg-up", "change_text": "▲ 125% below median"}, {"name": "Courtly Cloak", "sub": "", "price": "35g", "volume": "229", "change_class": "chg-up", "change_text": "▲ 1014% below median"}, {"name": "Courtly Robes", "sub": "", "price": "36g", "volume": "184", "change_class": "chg-up", "change_text": "▲ 28% below median"}, {"name": "Tarnished Dawnlit Spellbinder's Sash", "sub": "", "price": "55g", "volume": "181", "change_class": "chg-up", "change_text": "▲ 106% below median"}, {"name": "Tarnished Dawnlit Spellbinder's Trousers", "sub": "", "price": "42g", "volume": "156", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Tarnished Dawnlit Spellbinder's Mitts", "sub": "", "price": "43g", "volume": "146", "change_class": "chg-up", "change_text": "▲ 249% below median"}, {"name": "Tarnished Dawnlit Spellbinder's Bands", "sub": "", "price": "44g", "volume": "131", "change_class": "chg-up", "change_text": "▲ 401% below median"}, {"name": "Tarnished Dawnlit Spellbinder's Slippers", "sub": "", "price": "56g", "volume": "122", "change_class": "chg-up", "change_text": "▲ 1575% below median"}, {"name": "Courtly Pants", "sub": "", "price": "49g", "volume": "114", "change_class": "chg-up", "change_text": "▲ 1019% below median"}, {"name": "Courtly Helm", "sub": "", "price": "30g", "volume": "105", "change_class": "chg-up", "change_text": "▲ 99% below median"}], "Jewelcrafting": [{"name": "No Jewelcrafting items found in top 300 listings", "sub": "Try checking back after the next refresh", "price": "—", "volume": "—", "change_class": "chg-st", "change_text": "—"}], "Alchemy": [{"name": "Reflecting Prism", "sub": "", "price": "0g", "volume": "251", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Crashin' Thrashin' Robot", "sub": "", "price": "2,222g", "volume": "69", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Gnomish Army Knife", "sub": "", "price": "1g", "volume": "52", "change_class": "chg-st", "change_text": "— Stable"}], "Enchanting": [{"name": "No Enchanting items found in top 300 listings", "sub": "Try checking back after the next refresh", "price": "—", "volume": "—", "change_class": "chg-st", "change_text": "—"}], "Engineering": [{"name": "Felbat Pup", "sub": "", "price": "11g", "volume": "72", "change_class": "chg-up", "change_text": "▲ 33% below median"}, {"name": "Flying Machine", "sub": "", "price": "1,000g", "volume": "68", "change_class": "chg-st", "change_text": "— Stable"}], "Inscription": [{"name": "No Inscription items found in top 300 listings", "sub": "Try checking back after the next refresh", "price": "—", "volume": "—", "change_class": "chg-st", "change_text": "—"}], "Mining": [{"name": "No Mining items found in top 300 listings", "sub": "Try checking back after the next refresh", "price": "—", "volume": "—", "change_class": "chg-st", "change_text": "—"}], "Herbalism": [{"name": "No Herbalism items found in top 300 listings", "sub": "Try checking back after the next refresh", "price": "—", "volume": "—", "change_class": "chg-st", "change_text": "—"}], "Skinning": [{"name": "No Skinning items found in top 300 listings", "sub": "Try checking back after the next refresh", "price": "—", "volume": "—", "change_class": "chg-st", "change_text": "—"}]}, "housing": [], "tiers": [{"spec": "Retribution", "cls": "Paladin", "role": "DPS", "tier": "S", "score": "100.0", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Protection", "cls": "Warrior", "role": "Tank", "tier": "S", "score": "100.0", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Restoration", "cls": "Shaman", "role": "Healer", "tier": "S", "score": "100.0", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Havoc Demon", "cls": "Hunter", "role": "DPS", "tier": "S", "score": "100.0", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Discipline", "cls": "Priest", "role": "Healer", "tier": "S", "score": "97.9", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Unholy Death", "cls": "Knight", "role": "DPS", "tier": "S", "score": "97.5", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Arcane", "cls": "Mage", "role": "DPS", "tier": "S", "score": "97.4", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Balance", "cls": "Druid", "role": "DPS", "tier": "S", "score": "97.4", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Vengeance Demon", "cls": "Hunter", "role": "Tank", "tier": "S", "score": "97.4", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Holy", "cls": "Paladin", "role": "Healer", "tier": "S", "score": "96.2", "change": "— Stable", "change_class": "change-stable"}], "trinkets": {"Death Knight": {"Blood": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Frost": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Unholy": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Demon Hunter": {"Havoc": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Vengeance": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Druid": {"Balance": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Feral": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Guardian": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Restoration": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Evoker": {"Devastation": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Augmentation": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Preservation": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Hunter": {"Beast Mastery": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Marksmanship": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Survival": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Mage": {"Arcane": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Fire": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Frost": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Monk": {"Brewmaster": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Mistweaver": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Windwalker": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Paladin": {"Holy": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Protection": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Retribution": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Priest": {"Discipline": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Holy": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Shadow": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Rogue": {"Assassination": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Outlaw": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Subtlety": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Shaman": {"Elemental": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Enhancement": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Restoration": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Warlock": {"Affliction": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Demonology": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Destruction": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Warrior": {"Arms": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Fury": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Protection": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}}};
+  var data={"listings": 0, "updated": "20:17:05 · 14 Mar 2026", "prof": {}, "housing": [], "tiers": [{"spec": "Retribution", "cls": "Paladin", "role": "DPS", "tier": "S", "score": "100.0", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Protection", "cls": "Warrior", "role": "Tank", "tier": "S", "score": "100.0", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Restoration", "cls": "Shaman", "role": "Healer", "tier": "S", "score": "100.0", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Havoc Demon", "cls": "Hunter", "role": "DPS", "tier": "S", "score": "100.0", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Discipline", "cls": "Priest", "role": "Healer", "tier": "S", "score": "97.9", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Unholy Death", "cls": "Knight", "role": "DPS", "tier": "S", "score": "97.5", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Arcane", "cls": "Mage", "role": "DPS", "tier": "S", "score": "97.4", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Balance", "cls": "Druid", "role": "DPS", "tier": "S", "score": "97.4", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Vengeance Demon", "cls": "Hunter", "role": "Tank", "tier": "S", "score": "97.4", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Holy", "cls": "Paladin", "role": "Healer", "tier": "S", "score": "96.2", "change": "— Stable", "change_class": "change-stable"}], "trinkets": {"Death Knight": {"Blood": [{"name": "Void Reaper Core", "tier": "S", "pct": "72%", "change": "▲ Best in Slot"}, {"name": "Nerubian Hatching Sac", "tier": "A", "pct": "41%", "change": "— Strong Pick"}, {"name": "Spymasters Web", "tier": "A", "pct": "38%", "change": "— Strong Pick"}, {"name": "Manic Grieftorch", "tier": "B", "pct": "14%", "change": "— Situational"}], "Frost": [{"name": "Spymasters Web", "tier": "S", "pct": "68%", "change": "▲ Best in Slot"}, {"name": "Treacherous Transmitter", "tier": "A", "pct": "44%", "change": "— Strong Pick"}, {"name": "Void Reaper Core", "tier": "B", "pct": "22%", "change": "— Situational"}, {"name": "Ara-Kara Sacbrood", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Unholy": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "70%", "change": "▲ Best in Slot"}, {"name": "Sikrans Shadow Arsenal", "tier": "A", "pct": "43%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "20%", "change": "— Situational"}, {"name": "Spymasters Web", "tier": "C", "pct": "11%", "change": "▼ Niche / Skip"}]}, "Demon Hunter": {"Havoc": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "68%", "change": "▲ Best in Slot"}, {"name": "Sikrans Shadow Arsenal", "tier": "A", "pct": "44%", "change": "— Strong Pick"}, {"name": "Ara-Kara Sacbrood", "tier": "B", "pct": "22%", "change": "— Situational"}, {"name": "Void-Kissed Reliquary", "tier": "C", "pct": "8%", "change": "▼ Niche / Skip"}], "Vengeance": [{"name": "Nerubian Hatching Sac", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Void Reaper Core", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Spymasters Web", "tier": "B", "pct": "19%", "change": "— Situational"}, {"name": "Ara-Kara Sacbrood", "tier": "C", "pct": "7%", "change": "▼ Niche / Skip"}]}, "Druid": {"Balance": [{"name": "Ovinaxs Mercurial Egg", "tier": "S", "pct": "66%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "41%", "change": "— Strong Pick"}, {"name": "Void-Kissed Reliquary", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Balefire Branch", "tier": "C", "pct": "7%", "change": "▼ Niche / Skip"}], "Feral": [{"name": "Sikrans Shadow Arsenal", "tier": "S", "pct": "64%", "change": "▲ Best in Slot"}, {"name": "Treacherous Transmitter", "tier": "A", "pct": "39%", "change": "— Strong Pick"}, {"name": "Ovinaxs Mercurial Egg", "tier": "B", "pct": "17%", "change": "— Situational"}, {"name": "Nerubian Hatching Sac", "tier": "C", "pct": "8%", "change": "▼ Niche / Skip"}], "Guardian": [{"name": "Void Reaper Core", "tier": "S", "pct": "71%", "change": "▲ Best in Slot"}, {"name": "Nerubian Hatching Sac", "tier": "A", "pct": "42%", "change": "— Strong Pick"}, {"name": "Spymasters Web", "tier": "B", "pct": "16%", "change": "— Situational"}, {"name": "Ara-Kara Sacbrood", "tier": "C", "pct": "6%", "change": "▼ Niche / Skip"}], "Restoration": [{"name": "Ovinaxs Mercurial Egg", "tier": "S", "pct": "69%", "change": "▲ Best in Slot"}, {"name": "Void-Kissed Reliquary", "tier": "A", "pct": "43%", "change": "— Strong Pick"}, {"name": "Spymasters Web", "tier": "B", "pct": "21%", "change": "— Situational"}, {"name": "Empowered Void Crystal", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Evoker": {"Devastation": [{"name": "Spymasters Web", "tier": "S", "pct": "72%", "change": "▲ Best in Slot"}, {"name": "Void-Kissed Reliquary", "tier": "A", "pct": "44%", "change": "— Strong Pick"}, {"name": "Treacherous Transmitter", "tier": "A", "pct": "36%", "change": "— Strong Pick"}, {"name": "Ovinaxs Mercurial Egg", "tier": "B", "pct": "14%", "change": "— Situational"}], "Augmentation": [{"name": "Spymasters Web", "tier": "S", "pct": "78%", "change": "▲ Best in Slot"}, {"name": "Treacherous Transmitter", "tier": "A", "pct": "48%", "change": "— Strong Pick"}, {"name": "Void-Kissed Reliquary", "tier": "B", "pct": "22%", "change": "— Situational"}, {"name": "Ovinaxs Mercurial Egg", "tier": "C", "pct": "10%", "change": "▼ Niche / Skip"}], "Preservation": [{"name": "Void-Kissed Reliquary", "tier": "S", "pct": "67%", "change": "▲ Best in Slot"}, {"name": "Ovinaxs Mercurial Egg", "tier": "A", "pct": "41%", "change": "— Strong Pick"}, {"name": "Spymasters Web", "tier": "B", "pct": "19%", "change": "— Situational"}, {"name": "Empowered Void Crystal", "tier": "C", "pct": "8%", "change": "▼ Niche / Skip"}]}, "Hunter": {"Beast Mastery": [{"name": "Sikrans Shadow Arsenal", "tier": "S", "pct": "66%", "change": "▲ Best in Slot"}, {"name": "Treacherous Transmitter", "tier": "A", "pct": "39%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "20%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Marksmanship": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "70%", "change": "▲ Best in Slot"}, {"name": "Sikrans Shadow Arsenal", "tier": "A", "pct": "44%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Spymasters Web", "tier": "C", "pct": "7%", "change": "▼ Niche / Skip"}], "Survival": [{"name": "Nerubian Hatching Sac", "tier": "S", "pct": "63%", "change": "▲ Best in Slot"}, {"name": "Sikrans Shadow Arsenal", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Treacherous Transmitter", "tier": "B", "pct": "21%", "change": "— Situational"}, {"name": "Ara-Kara Sacbrood", "tier": "C", "pct": "10%", "change": "▼ Niche / Skip"}]}, "Mage": {"Arcane": [{"name": "Void Reaper Core", "tier": "S", "pct": "73%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "45%", "change": "— Strong Pick"}, {"name": "Ovinaxs Mercurial Egg", "tier": "B", "pct": "20%", "change": "— Situational"}, {"name": "Empowered Void Crystal", "tier": "C", "pct": "8%", "change": "▼ Niche / Skip"}], "Fire": [{"name": "Void Reaper Core", "tier": "S", "pct": "74%", "change": "▲ Best in Slot"}, {"name": "Ovinaxs Mercurial Egg", "tier": "A", "pct": "42%", "change": "— Strong Pick"}, {"name": "Empowered Void Crystal", "tier": "B", "pct": "19%", "change": "— Situational"}, {"name": "Balefire Branch", "tier": "C", "pct": "6%", "change": "▼ Niche / Skip"}], "Frost": [{"name": "Ovinaxs Mercurial Egg", "tier": "S", "pct": "69%", "change": "▲ Best in Slot"}, {"name": "Void Reaper Core", "tier": "A", "pct": "41%", "change": "— Strong Pick"}, {"name": "Spymasters Web", "tier": "B", "pct": "17%", "change": "— Situational"}, {"name": "Empowered Void Crystal", "tier": "C", "pct": "7%", "change": "▼ Niche / Skip"}]}, "Monk": {"Brewmaster": [{"name": "Void Reaper Core", "tier": "S", "pct": "67%", "change": "▲ Best in Slot"}, {"name": "Nerubian Hatching Sac", "tier": "A", "pct": "39%", "change": "— Strong Pick"}, {"name": "Spymasters Web", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Ara-Kara Sacbrood", "tier": "C", "pct": "8%", "change": "▼ Niche / Skip"}], "Mistweaver": [{"name": "Void-Kissed Reliquary", "tier": "S", "pct": "70%", "change": "▲ Best in Slot"}, {"name": "Ovinaxs Mercurial Egg", "tier": "A", "pct": "43%", "change": "— Strong Pick"}, {"name": "Spymasters Web", "tier": "B", "pct": "20%", "change": "— Situational"}, {"name": "Empowered Void Crystal", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Windwalker": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Sikrans Shadow Arsenal", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "19%", "change": "— Situational"}, {"name": "Spymasters Web", "tier": "C", "pct": "8%", "change": "▼ Niche / Skip"}]}, "Paladin": {"Holy": [{"name": "Void-Kissed Reliquary", "tier": "S", "pct": "68%", "change": "▲ Best in Slot"}, {"name": "Ovinaxs Mercurial Egg", "tier": "A", "pct": "42%", "change": "— Strong Pick"}, {"name": "Spymasters Web", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Empowered Void Crystal", "tier": "C", "pct": "7%", "change": "▼ Niche / Skip"}], "Protection": [{"name": "Nerubian Hatching Sac", "tier": "S", "pct": "66%", "change": "▲ Best in Slot"}, {"name": "Void Reaper Core", "tier": "A", "pct": "41%", "change": "— Strong Pick"}, {"name": "Spymasters Web", "tier": "B", "pct": "17%", "change": "— Situational"}, {"name": "Ara-Kara Sacbrood", "tier": "C", "pct": "7%", "change": "▼ Niche / Skip"}], "Retribution": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "69%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "43%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "20%", "change": "— Situational"}, {"name": "Sikrans Shadow Arsenal", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Priest": {"Discipline": [{"name": "Void-Kissed Reliquary", "tier": "S", "pct": "71%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "44%", "change": "— Strong Pick"}, {"name": "Empowered Void Crystal", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Ovinaxs Mercurial Egg", "tier": "C", "pct": "7%", "change": "▼ Niche / Skip"}], "Holy": [{"name": "Ovinaxs Mercurial Egg", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Void-Kissed Reliquary", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Empowered Void Crystal", "tier": "B", "pct": "16%", "change": "— Situational"}, {"name": "Spymasters Web", "tier": "C", "pct": "6%", "change": "▼ Niche / Skip"}], "Shadow": [{"name": "Void-Kissed Reliquary", "tier": "S", "pct": "74%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "46%", "change": "— Strong Pick"}, {"name": "Ovinaxs Mercurial Egg", "tier": "B", "pct": "22%", "change": "— Situational"}, {"name": "Treacherous Transmitter", "tier": "C", "pct": "10%", "change": "▼ Niche / Skip"}]}, "Rogue": {"Assassination": [{"name": "Sikrans Shadow Arsenal", "tier": "S", "pct": "69%", "change": "▲ Best in Slot"}, {"name": "Treacherous Transmitter", "tier": "A", "pct": "41%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "23%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Outlaw": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "67%", "change": "▲ Best in Slot"}, {"name": "Sikrans Shadow Arsenal", "tier": "A", "pct": "42%", "change": "— Strong Pick"}, {"name": "Spymasters Web", "tier": "B", "pct": "20%", "change": "— Situational"}, {"name": "Nerubian Hatching Sac", "tier": "C", "pct": "8%", "change": "▼ Niche / Skip"}], "Subtlety": [{"name": "Sikrans Shadow Arsenal", "tier": "S", "pct": "71%", "change": "▲ Best in Slot"}, {"name": "Treacherous Transmitter", "tier": "A", "pct": "45%", "change": "— Strong Pick"}, {"name": "Void Reaper Core", "tier": "B", "pct": "21%", "change": "— Situational"}, {"name": "Nerubian Hatching Sac", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Shaman": {"Elemental": [{"name": "Ovinaxs Mercurial Egg", "tier": "S", "pct": "68%", "change": "▲ Best in Slot"}, {"name": "Void-Kissed Reliquary", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Spymasters Web", "tier": "B", "pct": "17%", "change": "— Situational"}, {"name": "Empowered Void Crystal", "tier": "C", "pct": "7%", "change": "▼ Niche / Skip"}], "Enhancement": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "66%", "change": "▲ Best in Slot"}, {"name": "Sikrans Shadow Arsenal", "tier": "A", "pct": "39%", "change": "— Strong Pick"}, {"name": "Ovinaxs Mercurial Egg", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Nerubian Hatching Sac", "tier": "C", "pct": "8%", "change": "▼ Niche / Skip"}], "Restoration": [{"name": "Void-Kissed Reliquary", "tier": "S", "pct": "64%", "change": "▲ Best in Slot"}, {"name": "Ovinaxs Mercurial Egg", "tier": "A", "pct": "38%", "change": "— Strong Pick"}, {"name": "Empowered Void Crystal", "tier": "B", "pct": "16%", "change": "— Situational"}, {"name": "Spymasters Web", "tier": "C", "pct": "6%", "change": "▼ Niche / Skip"}]}, "Warlock": {"Affliction": [{"name": "Spymasters Web", "tier": "S", "pct": "73%", "change": "▲ Best in Slot"}, {"name": "Void-Kissed Reliquary", "tier": "A", "pct": "44%", "change": "— Strong Pick"}, {"name": "Ovinaxs Mercurial Egg", "tier": "B", "pct": "19%", "change": "— Situational"}, {"name": "Empowered Void Crystal", "tier": "C", "pct": "8%", "change": "▼ Niche / Skip"}], "Demonology": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "67%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "41%", "change": "— Strong Pick"}, {"name": "Void-Kissed Reliquary", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Nerubian Hatching Sac", "tier": "C", "pct": "7%", "change": "▼ Niche / Skip"}], "Destruction": [{"name": "Void-Kissed Reliquary", "tier": "S", "pct": "70%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "43%", "change": "— Strong Pick"}, {"name": "Treacherous Transmitter", "tier": "B", "pct": "20%", "change": "— Situational"}, {"name": "Ovinaxs Mercurial Egg", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Warrior": {"Arms": [{"name": "Nerubian Hatching Sac", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Treacherous Transmitter", "tier": "B", "pct": "19%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "8%", "change": "▼ Niche / Skip"}], "Fury": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "68%", "change": "▲ Best in Slot"}, {"name": "Nerubian Hatching Sac", "tier": "A", "pct": "42%", "change": "— Strong Pick"}, {"name": "Sikrans Shadow Arsenal", "tier": "B", "pct": "20%", "change": "— Situational"}, {"name": "Spymasters Web", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Protection": [{"name": "Void Reaper Core", "tier": "S", "pct": "66%", "change": "▲ Best in Slot"}, {"name": "Nerubian Hatching Sac", "tier": "A", "pct": "39%", "change": "— Strong Pick"}, {"name": "Ara-Kara Sacbrood", "tier": "B", "pct": "19%", "change": "— Situational"}, {"name": "Spymasters Web", "tier": "C", "pct": "8%", "change": "▼ Niche / Skip"}]}}};
   if(window.loadVoidpulseData) window.loadVoidpulseData(data);
   else document.addEventListener('DOMContentLoaded',function(){ if(window.loadVoidpulseData) window.loadVoidpulseData(data); });
 })();
