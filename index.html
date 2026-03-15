@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOIDPULSE — WoW Midnight Intelligence Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void:#0a0612;--deep:#0f0a1e;--mid:#140d2a;--surface:#1c1435;
+  --border:#2a1f4a;--glow-purple:#7c3aed;--glow-violet:#a855f7;
+  --glow-pink:#ec4899;--glow-cyan:#06b6d4;--glow-gold:#f59e0b;
+  --text-primary:#e2d9f3;--text-muted:#7c6fa0;--text-dim:#4a3f6b;--green:#22c55e;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--void);color:var(--text-primary);font-family:'Crimson Pro',Georgia,serif;font-size:17px;overflow-x:hidden;}
+.void-bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(124,58,237,0.15) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 80% 90%,rgba(168,85,247,0.1) 0%,transparent 50%),var(--void);pointer-events:none;}
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.star{position:absolute;border-radius:50%;background:white;animation:twinkle var(--d,3s) ease-in-out infinite alternate;animation-delay:var(--delay,0s);}
+@keyframes twinkle{from{opacity:var(--min-op,0.1);}to{opacity:var(--max-op,0.7);}}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:linear-gradient(to bottom,rgba(10,6,18,0.97),transparent);backdrop-filter:blur(4px);border-bottom:1px solid rgba(42,31,74,0.5);}
+.nav-logo{font-family:'Cinzel Decorative',serif;font-size:20px;font-weight:900;background:linear-gradient(135deg,#c4b5fd,var(--glow-violet),var(--glow-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-links{display:flex;gap:6px;list-style:none;flex-wrap:wrap;}
+.nav-links a{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;padding:6px 12px;border:1px solid transparent;transition:all 0.3s;}
+.nav-links a:hover{color:var(--glow-violet);border-color:var(--border);}
+.nav-badge{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;padding:5px 14px;border:1px solid var(--glow-purple);color:var(--glow-violet);text-transform:uppercase;white-space:nowrap;}
+.hero{position:relative;z-index:1;min-height:58vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 48px 60px;}
+.hero-eyebrow{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--glow-cyan);margin-bottom:20px;opacity:0;animation:fadeUp 0.8s ease 0.2s forwards;}
+.hero-title{font-family:'Cinzel Decorative',serif;font-size:clamp(44px,7vw,96px);font-weight:900;line-height:0.9;margin-bottom:12px;opacity:0;animation:fadeUp 1s ease 0.4s forwards;}
+.hero-title .t1{display:block;background:linear-gradient(135deg,#c4b5fd,var(--glow-violet),var(--glow-pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 32px rgba(168,85,247,0.4));}
+.hero-title .t2{display:block;font-family:'Cinzel',serif;font-size:0.38em;letter-spacing:0.28em;-webkit-text-fill-color:var(--text-muted);margin-top:10px;}
+.hero-desc{max-width:560px;font-size:18px;font-weight:300;font-style:italic;color:var(--text-muted);line-height:1.7;margin:24px auto 40px;opacity:0;animation:fadeUp 1s ease 0.6s forwards;}
+.hero-stats{display:flex;gap:40px;justify-content:center;opacity:0;animation:fadeUp 1s ease 0.8s forwards;}
+.hero-stat-num{font-family:'Cinzel Decorative',serif;font-size:28px;font-weight:700;color:var(--glow-violet);display:block;}
+.hero-stat-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);font-family:'Cinzel',serif;margin-top:4px;display:block;}
+.hero-divider{width:1px;height:36px;background:var(--border);align-self:center;}
+.ticker-wrap{display:flex;align-items:center;height:48px;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;position:relative;z-index:1;}
+.ticker-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;background:var(--glow-purple);color:white;padding:0 18px;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;}
+.ticker-scroll{overflow:hidden;flex:1;}
+.ticker-inner{display:flex;gap:56px;animation:ticker 35s linear infinite;white-space:nowrap;}
+.ticker-item{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;color:var(--text-muted);flex-shrink:0;}
+.ticker-item .up{color:var(--green);}.ticker-item .dn{color:var(--glow-pink);}.ticker-item .hi{color:var(--glow-gold);}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.section{position:relative;z-index:1;padding:90px 48px;}
+.section-alt{background:linear-gradient(to bottom,var(--void),var(--deep),var(--void));}
+.section-header{text-align:center;margin-bottom:56px;}
+.section-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:var(--glow-cyan);margin-bottom:12px;display:block;}
+.section-title{font-family:'Cinzel Decorative',serif;font-size:clamp(24px,3.5vw,40px);font-weight:700;color:var(--text-primary);margin-bottom:10px;}
+.section-sub{font-size:16px;font-style:italic;color:var(--text-muted);max-width:480px;margin:0 auto;}
+.updated-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:var(--text-dim);margin-top:10px;text-transform:uppercase;display:block;}
+.tab-bar{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin-bottom:40px;}
+.tab-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:8px 16px;background:transparent;color:var(--text-muted);border:1px solid var(--border);cursor:pointer;transition:all 0.3s;}
+.tab-btn:hover{border-color:var(--glow-violet);color:var(--glow-violet);}
+.tab-btn.active{background:var(--glow-purple);color:white;border-color:var(--glow-purple);}
+.prof-table{width:100%;max-width:1100px;margin:0 auto;border:1px solid var(--border);overflow:hidden;}
+.prof-table-header{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1fr 60px;background:var(--surface);padding:12px 20px;gap:12px;border-bottom:1px solid var(--border);}
+.prof-table-header span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-dim);}
+.prof-row{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1fr 60px;padding:14px 20px;gap:12px;align-items:center;border-bottom:1px solid rgba(42,31,74,0.5);background:var(--deep);transition:background 0.2s;}
+.prof-row:hover{background:var(--mid);}
+.prof-row:last-child{border-bottom:none;}
+.prof-item-name{font-family:'Cinzel',serif;font-size:13px;color:var(--text-primary);}
+.prof-item-sub{font-size:11px;color:var(--text-dim);font-style:italic;margin-top:2px;}
+.prof-price{font-family:'Cinzel Decorative',serif;font-size:16px;color:var(--glow-gold);}
+.prof-volume{font-family:'Cinzel',serif;font-size:12px;color:var(--text-muted);}
+.prof-change{font-family:'Cinzel',serif;font-size:10px;padding:3px 9px;border-radius:1px;text-align:center;white-space:nowrap;display:inline-block;}
+.chg-up{background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.25);}
+.chg-dn{background:rgba(236,72,153,0.12);color:var(--glow-pink);border:1px solid rgba(236,72,153,0.25);}
+.chg-st{background:rgba(74,63,107,0.2);color:var(--text-dim);border:1px solid var(--border);}
+.prof-rank{font-family:'Cinzel Decorative',serif;font-size:18px;color:var(--text-dim);text-align:center;}
+.prof-rank.r1{color:var(--glow-gold);}.prof-rank.r2{color:#9ca3af;}.prof-rank.r3{color:#cd7f32;}
+.housing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;max-width:1200px;margin:0 auto;}
+.housing-card{background:var(--deep);border:1px solid var(--border);padding:20px 24px;position:relative;overflow:hidden;transition:background 0.2s;}
+.housing-card:hover{background:var(--mid);}
+.housing-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--glow-violet);}
+.housing-rank{font-family:'Cinzel Decorative',serif;font-size:28px;font-weight:700;color:var(--text-dim);position:absolute;top:12px;right:16px;opacity:0.25;}
+.housing-name{font-family:'Cinzel',serif;font-size:14px;color:var(--text-primary);margin-bottom:4px;padding-right:32px;}
+.housing-cat{font-size:11px;color:var(--glow-violet);font-family:'Cinzel',serif;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;}
+.housing-price{font-family:'Cinzel Decorative',serif;font-size:20px;color:var(--glow-gold);}
+.housing-vol{font-size:11px;color:var(--text-dim);margin-top:4px;font-style:italic;}
+.tier-section-wrap{max-width:1000px;margin:0 auto;}
+.tier-group{margin-bottom:8px;}
+.tier-group-label{display:flex;align-items:center;gap:16px;padding:10px 20px;background:var(--surface);border:1px solid var(--border);border-bottom:none;}
+.tier-letter{font-family:'Cinzel Decorative',serif;font-size:28px;font-weight:900;width:36px;text-align:center;}
+.tl-s{color:#f59e0b;}.tl-a{color:#22c55e;}.tl-b{color:#06b6d4;}.tl-c{color:#a855f7;}.tl-d{color:#7c6fa0;}
+.tier-group-desc{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);}
+.tier-rows{border:1px solid var(--border);}
+.tier-row{display:grid;grid-template-columns:1fr 1fr 110px 80px 90px;padding:13px 20px;gap:12px;align-items:center;border-bottom:1px solid rgba(42,31,74,0.4);background:var(--deep);transition:background 0.2s;}
+.tier-row:hover{background:var(--mid);}
+.tier-row:last-child{border-bottom:none;}
+.tr-spec{font-family:'Cinzel',serif;font-size:13px;color:var(--text-primary);}
+.tr-class{font-size:11px;color:var(--text-dim);font-style:italic;margin-top:2px;}
+.tr-role{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:3px 9px;border-radius:1px;text-align:center;display:inline-block;}
+.role-dps{background:rgba(236,72,153,0.12);color:var(--glow-pink);border:1px solid rgba(236,72,153,0.25);}
+.role-heal{background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.25);}
+.role-tank{background:rgba(6,182,212,0.12);color:var(--glow-cyan);border:1px solid rgba(6,182,212,0.25);}
+.tr-change{font-family:'Cinzel',serif;font-size:10px;padding:3px 9px;border-radius:1px;text-align:center;display:inline-block;}
+.change-buffed{background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.25);}
+.change-nerfed{background:rgba(236,72,153,0.12);color:var(--glow-pink);border:1px solid rgba(236,72,153,0.25);}
+.change-stable{background:rgba(74,63,107,0.2);color:var(--text-dim);border:1px solid var(--border);}
+.tr-score{font-family:'Cinzel Decorative',serif;font-size:15px;color:var(--glow-violet);text-align:right;}
+.trinket-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;max-width:1400px;margin:0 auto;}
+.trinket-card{background:var(--deep);border:1px solid var(--border);padding:22px;position:relative;overflow:hidden;transition:background 0.2s;}
+.trinket-card:hover{background:var(--mid);}
+.trinket-card-top{position:absolute;top:0;left:0;right:0;height:2px;}
+.trinket-class-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:3px;}
+.trinket-spec-label{font-family:'Cinzel',serif;font-size:13px;color:var(--text-primary);margin-bottom:14px;}
+.trinket-rows{border-top:1px solid var(--border);}
+.trinket-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(42,31,74,0.4);}
+.trinket-row:last-child{border-bottom:none;}
+.trinket-tier{font-family:'Cinzel Decorative',serif;font-size:15px;font-weight:700;width:18px;text-align:center;flex-shrink:0;}
+.trinket-name{flex:1;font-family:'Cinzel',serif;font-size:12px;color:var(--text-primary);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.trinket-label{font-size:10px;color:var(--text-dim);font-style:italic;margin-top:1px;}
+.trinket-pct{font-family:'Cinzel',serif;font-size:11px;color:var(--text-muted);flex-shrink:0;}
+.empty-state{text-align:center;padding:60px;color:var(--text-dim);font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;}
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-logo{font-family:'Cinzel Decorative',serif;font-size:15px;font-weight:900;background:linear-gradient(135deg,var(--glow-violet),var(--glow-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.footer-note{font-size:12px;color:var(--text-dim);font-style:italic;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:900px){
+  nav{padding:14px 20px;}.nav-links{display:none;}.section{padding:60px 20px;}
+  .prof-table-header,.prof-row{grid-template-columns:2fr 1fr 1fr;}
+  .tier-row{grid-template-columns:1fr 80px 80px;}.tr-class,.tr-score{display:none;}
+  footer{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+<div class="void-bg"></div>
+<div class="stars" id="stars"></div>
+
+<nav>
+  <span class="nav-logo">VOIDPULSE</span>
+  <ul class="nav-links">
+    <li><a href="#market">Market</a></li>
+    <li><a href="#housing">Housing</a></li>
+    <li><a href="#tiers">Tier List</a></li>
+    <li><a href="#trinkets">Trinkets</a></li>
+  </ul>
+  <div class="nav-badge" id="navBadge">Live · Midnight 2026</div>
+</nav>
+
+<div class="hero">
+  <span class="hero-eyebrow">World of Warcraft · Midnight Expansion · Personal Dashboard</span>
+  <h1 class="hero-title">
+    <span class="t1">VOIDPULSE</span>
+    <span class="t2">Midnight Intelligence Hub</span>
+  </h1>
+  <p class="hero-desc">Your personal live WoW dashboard. Profession markets, housing prices, hero talent tiers, and trinket rankings — auto-updated every 30 minutes from real game data.</p>
+  <div class="hero-stats">
+    <div><span class="hero-stat-num" id="statListings">—</span><span class="hero-stat-label">AH Listings</span></div>
+    <div class="hero-divider"></div>
+    <div><span class="hero-stat-num">11</span><span class="hero-stat-label">Professions</span></div>
+    <div class="hero-divider"></div>
+    <div><span class="hero-stat-num">30m</span><span class="hero-stat-label">Refresh Rate</span></div>
+    <div class="hero-divider"></div>
+    <div><span class="hero-stat-num">36+</span><span class="hero-stat-label">Specs Tracked</span></div>
+  </div>
+</div>
+
+<div class="ticker-wrap">
+  <div class="ticker-label">⚡ Live</div>
+  <div class="ticker-scroll"><div class="ticker-inner" id="tickerInner"></div></div>
+</div>
+
+<!-- PROFESSION MARKET -->
+<section class="section" id="market">
+  <div class="section-header fade-in">
+    <span class="section-tag">Auction House · All Professions</span>
+    <h2 class="section-title">Profession Market — Top 10 Per Craft</h2>
+    <p class="section-sub">Highest-volume sold items per profession, ranked by sales. Updated every 30 minutes from your realm's Auction House.</p>
+    <span class="updated-tag" id="marketUpdated">Last updated: —</span>
+  </div>
+  <div class="tab-bar fade-in">
+    <button class="tab-btn active" onclick="switchProfTab('Blacksmithing',this)">Blacksmithing</button>
+    <button class="tab-btn" onclick="switchProfTab('Leatherworking',this)">Leatherworking</button>
+    <button class="tab-btn" onclick="switchProfTab('Tailoring',this)">Tailoring</button>
+    <button class="tab-btn" onclick="switchProfTab('Jewelcrafting',this)">Jewelcrafting</button>
+    <button class="tab-btn" onclick="switchProfTab('Alchemy',this)">Alchemy</button>
+    <button class="tab-btn" onclick="switchProfTab('Enchanting',this)">Enchanting</button>
+    <button class="tab-btn" onclick="switchProfTab('Engineering',this)">Engineering</button>
+    <button class="tab-btn" onclick="switchProfTab('Inscription',this)">Inscription</button>
+    <button class="tab-btn" onclick="switchProfTab('Mining',this)">Mining</button>
+    <button class="tab-btn" onclick="switchProfTab('Herbalism',this)">Herbalism</button>
+    <button class="tab-btn" onclick="switchProfTab('Skinning',this)">Skinning</button>
+  </div>
+  <div id="profPanel" class="fade-in"><div class="empty-state">Awaiting data — run wow_updater_devan.py then press F5</div></div>
+</section>
+
+<!-- HOUSING -->
+<section class="section section-alt" id="housing">
+  <div class="section-header fade-in">
+    <span class="section-tag">Housing Market · Top Decorations</span>
+    <h2 class="section-title">Top 10 Housing Decorations</h2>
+    <p class="section-sub">Highest-volume housing decoration sales on the Auction House right now.</p>
+    <span class="updated-tag" id="housingUpdated">Last updated: —</span>
+  </div>
+  <div id="housingGrid" class="housing-grid fade-in"><div class="empty-state" style="grid-column:1/-1">Awaiting data — run wow_updater_devan.py then press F5</div></div>
+</section>
+
+<!-- TIER LIST -->
+<section class="section" id="tiers">
+  <div class="section-header fade-in">
+    <span class="section-tag">Hero Talents · All 36 Specs · S through D</span>
+    <h2 class="section-title">Hero Talent Tier List</h2>
+    <p class="section-sub">Every spec ranked by Mythic+ performance. Grouped by tier. Filter by role.</p>
+    <span class="updated-tag" id="tierUpdated">Last updated: —</span>
+  </div>
+  <div class="tab-bar fade-in">
+    <button class="tab-btn active" onclick="switchRoleTab('All',this)">All Roles</button>
+    <button class="tab-btn" onclick="switchRoleTab('DPS',this)">DPS</button>
+    <button class="tab-btn" onclick="switchRoleTab('Healer',this)">Healer</button>
+    <button class="tab-btn" onclick="switchRoleTab('Tank',this)">Tank</button>
+  </div>
+  <div class="tier-section-wrap fade-in" id="tierList"><div class="empty-state">Awaiting data — run wow_updater_devan.py then press F5</div></div>
+</section>
+
+<!-- TRINKETS -->
+<section class="section section-alt" id="trinkets">
+  <div class="section-header fade-in">
+    <span class="section-tag">Trinket Intelligence · Per Spec</span>
+    <h2 class="section-title">Trinket Tier List — All Specs</h2>
+    <p class="section-sub">Top 4 trinkets per spec from top Warcraftlogs parses. S=60%+ · A=35%+ · B=15%+ · C=under 15%.</p>
+    <span class="updated-tag" id="trinketUpdated">Last updated: —</span>
+  </div>
+  <div class="tab-bar fade-in">
+    <button class="tab-btn active" onclick="switchTrinketTab('Death Knight',this)">Death Knight</button>
+    <button class="tab-btn" onclick="switchTrinketTab('Demon Hunter',this)">Demon Hunter</button>
+    <button class="tab-btn" onclick="switchTrinketTab('Druid',this)">Druid</button>
+    <button class="tab-btn" onclick="switchTrinketTab('Evoker',this)">Evoker</button>
+    <button class="tab-btn" onclick="switchTrinketTab('Hunter',this)">Hunter</button>
+    <button class="tab-btn" onclick="switchTrinketTab('Mage',this)">Mage</button>
+    <button class="tab-btn" onclick="switchTrinketTab('Monk',this)">Monk</button>
+    <button class="tab-btn" onclick="switchTrinketTab('Paladin',this)">Paladin</button>
+    <button class="tab-btn" onclick="switchTrinketTab('Priest',this)">Priest</button>
+    <button class="tab-btn" onclick="switchTrinketTab('Rogue',this)">Rogue</button>
+    <button class="tab-btn" onclick="switchTrinketTab('Shaman',this)">Shaman</button>
+    <button class="tab-btn" onclick="switchTrinketTab('Warlock',this)">Warlock</button>
+    <button class="tab-btn" onclick="switchTrinketTab('Warrior',this)">Warrior</button>
+  </div>
+  <div id="trinketPanel" class="fade-in"><div class="empty-state">Awaiting data — run wow_updater_devan.py then press F5</div></div>
+</section>
+
+<footer>
+  <span class="footer-logo">VOIDPULSE</span>
+  <span class="footer-note">Personal dashboard · Not affiliated with Blizzard Entertainment</span>
+  <span class="footer-note" id="footerTime"></span>
+</footer>
+
+<script>
+// Stars
+const se=document.getElementById('stars');
+for(let i=0;i<140;i++){const s=document.createElement('div');s.className='star';const z=Math.random()*2+0.4;s.style.cssText=`width:${z}px;height:${z}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*5}s;--min-op:${0.05+Math.random()*0.1};--max-op:${0.3+Math.random()*0.5};`;se.appendChild(s);}
+
+// Scroll fade
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.08});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+// Ticker
+const td=[{t:'AH MARKET',v:'Loading...',c:'hi'},{t:'TIER LIST',v:'Loading...',c:'hi'},{t:'TRINKETS',v:'Loading...',c:'hi'},{t:'HOUSING',v:'Loading...',c:'hi'}];
+const ti=document.getElementById('tickerInner');
+[...td,...td].forEach(d=>{const el=document.createElement('span');el.className='ticker-item';el.innerHTML=`<span class="${d.c}">${d.t}</span> &nbsp;${d.v} &nbsp;·`;ti.appendChild(el);});
+
+// Footer clock
+setInterval(()=>{document.getElementById('footerTime').textContent='Local: '+new Date().toLocaleTimeString();},1000);
+
+// Global data store
+window.VP={prof:{},housing:[],tiers:[],trinkets:{}};
+window.currentRole='All';
+window.currentProf='Blacksmithing';
+window.currentTrinketClass='Death Knight';
+
+const CLASS_COLORS={'Death Knight':'#C41E3A','Demon Hunter':'#A330C9','Druid':'#FF7C0A','Evoker':'#33937F','Hunter':'#AAD372','Mage':'#3FC7EB','Monk':'#00FF98','Paladin':'#F48CBA','Priest':'#CCCCCC','Rogue':'#FFF468','Shaman':'#0070DD','Warlock':'#8788EE','Warrior':'#C69B3A'};
+const TIER_COLORS={'S':'#f59e0b','A':'#22c55e','B':'#06b6d4','C':'#a855f7','?':'#4a3f6b'};
+const TIER_DESC={'S':'Best in class — dominant in all content','A':'Strong — competitive in most scenarios','B':'Solid — viable with good play','C':'Niche — situationally useful','D':'Struggling — significant disadvantages'};
+const TIER_CSS={'S':'tl-s','A':'tl-a','B':'tl-b','C':'tl-c','D':'tl-d'};
+
+function switchProfTab(prof,btn){
+  window.currentProf=prof;
+  btn.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProf();
+}
+function switchRoleTab(role,btn){
+  window.currentRole=role;
+  btn.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTiers();
+}
+function switchTrinketTab(cls,btn){
+  window.currentTrinketClass=cls;
+  btn.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTrinkets();
+}
+
+function renderProf(){
+  const c=document.getElementById('profPanel');
+  const items=window.VP.prof[window.currentProf]||[];
+  if(!items.length){c.innerHTML='<div class="empty-state">No data for '+window.currentProf+' yet</div>';return;}
+  c.innerHTML=`<div class="prof-table">
+    <div class="prof-table-header"><span>Item</span><span>Lowest Price</span><span>Volume (24h)</span><span>Trend</span><span style="text-align:center">Rank</span></div>
+    ${items.map((it,i)=>`<div class="prof-row">
+      <div><div class="prof-item-name">${it.name}</div><div class="prof-item-sub">${it.sub||''}</div></div>
+      <div class="prof-price">${it.price}</div>
+      <div class="prof-volume">${it.volume}</div>
+      <div><span class="prof-change ${it.change_class}">${it.change_text}</span></div>
+      <div class="prof-rank ${i===0?'r1':i===1?'r2':i===2?'r3':''}">${i+1}</div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function renderTiers(){
+  const c=document.getElementById('tierList');
+  let data=window.VP.tiers;
+  if(!data.length){c.innerHTML='<div class="empty-state">Awaiting tier data</div>';return;}
+  if(window.currentRole!=='All') data=data.filter(d=>d.role===window.currentRole);
+  const tiers=['S','A','B','C','D'];
+  c.innerHTML=tiers.map(tier=>{
+    const specs=data.filter(d=>d.tier===tier);
+    if(!specs.length) return '';
+    return `<div class="tier-group">
+      <div class="tier-group-label">
+        <span class="tier-letter ${TIER_CSS[tier]}">${tier}</span>
+        <span class="tier-group-desc">${TIER_DESC[tier]} · ${specs.length} spec${specs.length!==1?'s':''}</span>
+      </div>
+      <div class="tier-rows">
+        ${specs.map(s=>`<div class="tier-row">
+          <div><div class="tr-spec">${s.spec}</div><div class="tr-class">${s.cls}</div></div>
+          <div><span class="tr-role ${s.role==='DPS'?'role-dps':s.role==='Healer'?'role-heal':'role-tank'}">${s.role}</span></div>
+          <div><span class="tr-change ${s.change_class}">${s.change}</span></div>
+          <div class="tr-score">${s.score}</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderTrinkets(){
+  const c=document.getElementById('trinketPanel');
+  const cls=window.currentTrinketClass;
+  const specData=window.VP.trinkets[cls];
+  if(!specData||!Object.keys(specData).length){c.innerHTML='<div class="empty-state">No trinket data for '+cls+' yet</div>';return;}
+  const color=CLASS_COLORS[cls]||'#a855f7';
+  c.innerHTML=`<div class="trinket-grid">${Object.entries(specData).map(([spec,trinkets])=>`
+    <div class="trinket-card">
+      <div class="trinket-card-top" style="background:${color}"></div>
+      <div class="trinket-class-label" style="color:${color}">${cls}</div>
+      <div class="trinket-spec-label">${spec}</div>
+      <div class="trinket-rows">
+        ${trinkets.map(t=>`<div class="trinket-row">
+          <span class="trinket-tier" style="color:${TIER_COLORS[t.tier]||'#4a3f6b'}">${t.tier}</span>
+          <div style="flex:1;min-width:0;">
+            <div class="trinket-name">${t.name}</div>
+            <div class="trinket-label">${t.change}</div>
+          </div>
+          <span class="trinket-pct">${t.pct}</span>
+        </div>`).join('')}
+      </div>
+    </div>`).join('')}</div>`;
+}
+
+function renderHousing(){
+  const c=document.getElementById('housingGrid');
+  const items=window.VP.housing;
+  if(!items.length){c.innerHTML='<div class="empty-state" style="grid-column:1/-1">No housing data yet</div>';return;}
+  c.innerHTML=items.map((it,i)=>`
+    <div class="housing-card">
+      <div class="housing-rank">${i+1}</div>
+      <div class="housing-name">${it.name}</div>
+      <div class="housing-cat">${it.category}</div>
+      <div class="housing-price">${it.price}</div>
+      <div class="housing-vol">${it.volume} · ${it.change_text}</div>
+    </div>`).join('');
+}
+
+// Called by the updater script when it writes fresh data
+window.loadVoidpulseData=function(data){
+  const ts=data.updated||new Date().toLocaleTimeString();
+  if(data.listings) document.getElementById('statListings').textContent=Number(data.listings).toLocaleString();
+  document.getElementById('navBadge').textContent='Live · '+ts;
+  ['marketUpdated','housingUpdated','tierUpdated','trinketUpdated'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.textContent='Last updated: '+ts;
+  });
+  if(data.prof){window.VP.prof=data.prof; renderProf();}
+  if(data.housing){window.VP.housing=data.housing; renderHousing();}
+  if(data.tiers){window.VP.tiers=data.tiers; renderTiers();}
+  if(data.trinkets){window.VP.trinkets=data.trinkets; renderTrinkets();}
+  // Update ticker
+  if(data.prof){
+    const profKeys=Object.keys(data.prof);
+    if(profKeys.length){
+      const first=data.prof[profKeys[0]];
+      if(first&&first[0]) document.querySelectorAll('.ticker-item')[0].innerHTML=`<span class="hi">TOP CRAFT</span> &nbsp;${first[0].name} — ${first[0].price} &nbsp;·`;
+    }
+  }
+};
+</script>
+
+<!-- VOIDPULSE AUTO-DATA — regenerated every 30 min by wow_updater_devan.py -->
+<script>
+(function(){
+  var data={"listings": 140417, "updated": "20:06:14 · 14 Mar 2026", "prof": {"Blacksmithing": [{"name": "Courtly Shoulders", "sub": "", "price": "20g", "volume": "392", "change_class": "chg-up", "change_text": "▲ 125% below median"}, {"name": "Courtly Cloak", "sub": "", "price": "35g", "volume": "229", "change_class": "chg-up", "change_text": "▲ 1014% below median"}, {"name": "Gleaming Copper Band", "sub": "", "price": "40g", "volume": "229", "change_class": "chg-up", "change_text": "▲ 2395% below median"}, {"name": "Smuggler's Reinforced Hood", "sub": "", "price": "39g", "volume": "185", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Courtly Robes", "sub": "", "price": "36g", "volume": "184", "change_class": "chg-up", "change_text": "▲ 28% below median"}, {"name": "Tarnished Dawnlit Spellbinder's Sash", "sub": "", "price": "55g", "volume": "181", "change_class": "chg-up", "change_text": "▲ 106% below median"}, {"name": "Tarnished Dawnlit Loop", "sub": "", "price": "100g", "volume": "161", "change_class": "chg-up", "change_text": "▲ 156% below median"}, {"name": "Tarnished Dawnlit Spellbinder's Trousers", "sub": "", "price": "42g", "volume": "156", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Tarnished Dawnlit Pendant", "sub": "", "price": "40g", "volume": "156", "change_class": "chg-up", "change_text": "▲ 2198% below median"}, {"name": "Tarnished Dawnlit Commander's Gauntlets", "sub": "", "price": "41g", "volume": "154", "change_class": "chg-up", "change_text": "▲ 1097% below median"}], "Leatherworking": [{"name": "Smuggler's Reinforced Hood", "sub": "", "price": "39g", "volume": "185", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Evercore Shade", "sub": "", "price": "30g", "volume": "154", "change_class": "chg-up", "change_text": "▲ 43% below median"}, {"name": "Tarnished Dawnlit Sentinel's Armguards", "sub": "", "price": "41g", "volume": "126", "change_class": "chg-up", "change_text": "▲ 1447% below median"}, {"name": "Benefactor's Gauntlets", "sub": "", "price": "401g", "volume": "123", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Tarnished Dawnlit Sentinel's Cover", "sub": "", "price": "40g", "volume": "120", "change_class": "chg-up", "change_text": "▲ 1151% below median"}, {"name": "Scout's Polished Skullcap", "sub": "", "price": "40g", "volume": "113", "change_class": "chg-up", "change_text": "▲ 2400% below median"}, {"name": "Tarnished Dawnlit Sentinel's Epaulets", "sub": "", "price": "44g", "volume": "112", "change_class": "chg-up", "change_text": "▲ 180% below median"}, {"name": "Smuggler's Leather Wristbands", "sub": "", "price": "25g", "volume": "105", "change_class": "chg-up", "change_text": "▲ 3900% below median"}, {"name": "Tarnished Dawnlit Sentinel's Handguards", "sub": "", "price": "30g", "volume": "101", "change_class": "chg-up", "change_text": "▲ 4166% below median"}, {"name": "Smuggler's Reinforced Shoulderguards", "sub": "", "price": "360g", "volume": "99", "change_class": "chg-up", "change_text": "▲ 455% below median"}], "Tailoring": [{"name": "Courtly Shoulders", "sub": "", "price": "20g", "volume": "392", "change_class": "chg-up", "change_text": "▲ 125% below median"}, {"name": "Courtly Cloak", "sub": "", "price": "35g", "volume": "229", "change_class": "chg-up", "change_text": "▲ 1014% below median"}, {"name": "Courtly Robes", "sub": "", "price": "36g", "volume": "184", "change_class": "chg-up", "change_text": "▲ 28% below median"}, {"name": "Tarnished Dawnlit Spellbinder's Sash", "sub": "", "price": "55g", "volume": "181", "change_class": "chg-up", "change_text": "▲ 106% below median"}, {"name": "Tarnished Dawnlit Spellbinder's Trousers", "sub": "", "price": "42g", "volume": "156", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Tarnished Dawnlit Spellbinder's Mitts", "sub": "", "price": "43g", "volume": "146", "change_class": "chg-up", "change_text": "▲ 249% below median"}, {"name": "Tarnished Dawnlit Spellbinder's Bands", "sub": "", "price": "44g", "volume": "131", "change_class": "chg-up", "change_text": "▲ 401% below median"}, {"name": "Tarnished Dawnlit Spellbinder's Slippers", "sub": "", "price": "56g", "volume": "122", "change_class": "chg-up", "change_text": "▲ 1575% below median"}, {"name": "Courtly Pants", "sub": "", "price": "49g", "volume": "114", "change_class": "chg-up", "change_text": "▲ 1019% below median"}, {"name": "Courtly Helm", "sub": "", "price": "30g", "volume": "105", "change_class": "chg-up", "change_text": "▲ 99% below median"}], "Jewelcrafting": [{"name": "No Jewelcrafting items found in top 300 listings", "sub": "Try checking back after the next refresh", "price": "—", "volume": "—", "change_class": "chg-st", "change_text": "—"}], "Alchemy": [{"name": "Reflecting Prism", "sub": "", "price": "0g", "volume": "251", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Crashin' Thrashin' Robot", "sub": "", "price": "2,222g", "volume": "69", "change_class": "chg-st", "change_text": "— Stable"}, {"name": "Gnomish Army Knife", "sub": "", "price": "1g", "volume": "52", "change_class": "chg-st", "change_text": "— Stable"}], "Enchanting": [{"name": "No Enchanting items found in top 300 listings", "sub": "Try checking back after the next refresh", "price": "—", "volume": "—", "change_class": "chg-st", "change_text": "—"}], "Engineering": [{"name": "Felbat Pup", "sub": "", "price": "11g", "volume": "72", "change_class": "chg-up", "change_text": "▲ 33% below median"}, {"name": "Flying Machine", "sub": "", "price": "1,000g", "volume": "68", "change_class": "chg-st", "change_text": "— Stable"}], "Inscription": [{"name": "No Inscription items found in top 300 listings", "sub": "Try checking back after the next refresh", "price": "—", "volume": "—", "change_class": "chg-st", "change_text": "—"}], "Mining": [{"name": "No Mining items found in top 300 listings", "sub": "Try checking back after the next refresh", "price": "—", "volume": "—", "change_class": "chg-st", "change_text": "—"}], "Herbalism": [{"name": "No Herbalism items found in top 300 listings", "sub": "Try checking back after the next refresh", "price": "—", "volume": "—", "change_class": "chg-st", "change_text": "—"}], "Skinning": [{"name": "No Skinning items found in top 300 listings", "sub": "Try checking back after the next refresh", "price": "—", "volume": "—", "change_class": "chg-st", "change_text": "—"}]}, "housing": [], "tiers": [{"spec": "Retribution", "cls": "Paladin", "role": "DPS", "tier": "S", "score": "100.0", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Protection", "cls": "Warrior", "role": "Tank", "tier": "S", "score": "100.0", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Restoration", "cls": "Shaman", "role": "Healer", "tier": "S", "score": "100.0", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Havoc Demon", "cls": "Hunter", "role": "DPS", "tier": "S", "score": "100.0", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Discipline", "cls": "Priest", "role": "Healer", "tier": "S", "score": "97.9", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Unholy Death", "cls": "Knight", "role": "DPS", "tier": "S", "score": "97.5", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Arcane", "cls": "Mage", "role": "DPS", "tier": "S", "score": "97.4", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Balance", "cls": "Druid", "role": "DPS", "tier": "S", "score": "97.4", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Vengeance Demon", "cls": "Hunter", "role": "Tank", "tier": "S", "score": "97.4", "change": "— Stable", "change_class": "change-stable"}, {"spec": "Holy", "cls": "Paladin", "role": "Healer", "tier": "S", "score": "96.2", "change": "— Stable", "change_class": "change-stable"}], "trinkets": {"Death Knight": {"Blood": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Frost": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Unholy": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Demon Hunter": {"Havoc": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Vengeance": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Druid": {"Balance": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Feral": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Guardian": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Restoration": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Evoker": {"Devastation": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Augmentation": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Preservation": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Hunter": {"Beast Mastery": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Marksmanship": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Survival": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Mage": {"Arcane": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Fire": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Frost": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Monk": {"Brewmaster": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Mistweaver": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Windwalker": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Paladin": {"Holy": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Protection": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Retribution": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Priest": {"Discipline": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Holy": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Shadow": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Rogue": {"Assassination": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Outlaw": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Subtlety": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Shaman": {"Elemental": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Enhancement": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Restoration": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Warlock": {"Affliction": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Demonology": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Destruction": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}, "Warrior": {"Arms": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Fury": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}], "Protection": [{"name": "Treacherous Transmitter", "tier": "S", "pct": "65%", "change": "▲ Best in Slot"}, {"name": "Spymasters Web", "tier": "A", "pct": "40%", "change": "— Strong Pick"}, {"name": "Nerubian Hatching Sac", "tier": "B", "pct": "18%", "change": "— Situational"}, {"name": "Void Reaper Core", "tier": "C", "pct": "9%", "change": "▼ Niche / Skip"}]}}};
+  if(window.loadVoidpulseData) window.loadVoidpulseData(data);
+  else document.addEventListener('DOMContentLoaded',function(){ if(window.loadVoidpulseData) window.loadVoidpulseData(data); });
+})();
+</script>
+</body>
+</html>
