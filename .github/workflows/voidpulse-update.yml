@@ -1,0 +1,44 @@
+# Refreshes wow-midnight-hub.html + voidpulse_snapshot.json and copies to index.html for GitHub Pages.
+# Repository secrets: BLIZZARD_CLIENT_ID + BLIZZARD_CLIENT_SECRET (or BNET_*)
+name: Voidpulse data refresh
+
+on:
+  schedule:
+    # Every 30 minutes (UTC). GitHub may delay scheduled runs during high load.
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: voidpulse-update
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run updater
+        env:
+          BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
+          BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
+          BNET_CLIENT_ID: ${{ secrets.BNET_CLIENT_ID }}
+          BNET_CLIENT_SECRET: ${{ secrets.BNET_CLIENT_SECRET }}
+          VOIDPULSE_COPY_INDEX: "1"
+        run: python wow_updater_devan.py --once
+
+      - name: Commit site + snapshot
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(voidpulse): refresh live data"
+          file_pattern: wow-midnight-hub.html index.html voidpulse_snapshot.json
