@@ -1,13 +1,13 @@
 {
-  "listings": 98148,
-  "updated": "05:57:19 · 29 Apr 2026",
+  "listings": 97261,
+  "updated": "08:18:18 · 29 Apr 2026",
   "freshness": {
-    "market": "2026-04-29 05:57 UTC",
-    "consumables": "2026-04-29 05:57 UTC",
+    "market": "2026-04-29 08:18 UTC",
+    "consumables": "2026-04-29 08:18 UTC",
     "mplus": "—",
     "raid": "—",
-    "trinkets": "2026-04-29 05:57 UTC",
-    "gear": "2026-04-29 05:57 UTC"
+    "trinkets": "2026-04-29 08:18 UTC",
+    "gear": "2026-04-29 08:18 UTC"
   },
   "prof": {
     "Blacksmithing": [
@@ -17,29 +17,19 @@
         "price": "300g",
         "profit": "+165g",
         "profit_pos": true,
-        "volume": "180",
+        "volume": "182",
         "change_class": "chg-up",
         "change_text": "▲ 266% below median"
       },
       {
         "name": "Tarnished Dawnlit Band",
         "sub": "ilvl 197",
-        "price": "125g",
-        "profit": "+69g",
+        "price": "200g",
+        "profit": "+110g",
         "profit_pos": true,
-        "volume": "177",
+        "volume": "178",
         "change_class": "chg-up",
-        "change_text": "▲ 717% below median"
-      },
-      {
-        "name": "Courtly Shoulders",
-        "sub": "ilvl 197",
-        "price": "100g",
-        "profit": "+55g",
-        "profit_pos": true,
-        "volume": "154",
-        "change_class": "chg-up",
-        "change_text": "▲ 50% below median"
+        "change_text": "▲ 410% below median"
       },
       {
         "name": "Evercore Wrist Latch",
@@ -47,7 +37,7 @@
         "price": "149g",
         "profit": "+82g",
         "profit_pos": true,
-        "volume": "149",
+        "volume": "147",
         "change_class": "chg-st",
         "change_text": "— Stable"
       },
@@ -57,9 +47,19 @@
         "price": "195g",
         "profit": "+107g",
         "profit_pos": true,
-        "volume": "138",
+        "volume": "140",
         "change_class": "chg-up",
         "change_text": "▲ 748% below median"
+      },
+      {
+        "name": "Courtly Shoulders",
+        "sub": "ilvl 197",
+        "price": "100g",
+        "profit": "+55g",
+        "profit_pos": true,
+        "volume": "134",
+        "change_class": "chg-st",
+        "change_text": "— Stable"
       },
       {
         "name": "Tarnished Dawnlit Signet",
@@ -67,7 +67,7 @@
         "price": "150g",
         "profit": "+82g",
         "profit_pos": true,
-        "volume": "124",
+        "volume": "125",
         "change_class": "chg-up",
         "change_text": "▲ 936% below median"
       },
@@ -77,7 +77,7 @@
         "price": "382g",
         "profit": "+210g",
         "profit_pos": true,
-        "volume": "120",
+        "volume": "121",
         "change_class": "chg-up",
         "change_text": "▲ 63% below median"
       },
@@ -87,7 +87,7 @@
         "price": "60g",
         "profit": "+33g",
         "profit_pos": true,
-        "volume": "109",
+        "volume": "105",
         "change_class": "chg-up",
         "change_text": "▲ 557% below median"
       },
@@ -97,19 +97,19 @@
         "price": "74g",
         "profit": "+41g",
         "profit_pos": true,
-        "volume": "104",
+        "volume": "105",
         "change_class": "chg-up",
         "change_text": "▲ 102% below median"
       },
       {
-        "name": "Blood-Tempered Greaves",
+        "name": "Tarnished Dawnlit Corsair's Boots",
         "sub": "ilvl 197",
-        "price": "70g",
-        "profit": "+38g",
+        "price": "80g",
+        "profit": "+44g",
         "profit_pos": true,
-        "volume": "81",
+        "volume": "83",
         "change_class": "chg-up",
-        "change_text": "▲ 128% below median"
+        "change_text": "▲ 3397% below median"
       }
     ],
     "Leatherworking": [
@@ -119,19 +119,9 @@
         "price": "74g",
         "profit": "+44g",
         "profit_pos": true,
-        "volume": "104",
+        "volume": "105",
         "change_class": "chg-up",
         "change_text": "▲ 102% below median"
-      },
-      {
-        "name": "Tarnished Dawnlit Sentinel's Sabatons",
-        "sub": "ilvl 197",
-        "price": "67g",
-        "profit": "+40g",
-        "profit_pos": true,
-        "volume": "79",
-        "change_class": "chg-up",
-        "change_text": "▲ 795% below median"
       },
       {
         "name": "Tarnished Dawnlit Corsair's Boots",
@@ -139,9 +129,9 @@
         "price": "80g",
         "profit": "+48g",
         "profit_pos": true,
-        "volume": "76",
+        "volume": "83",
         "change_class": "chg-up",
-        "change_text": "▲ 3650% below median"
+        "change_text": "▲ 3397% below median"
       },
       {
         "name": "Tarnished Dawnlit Sentinel's Armguards",
@@ -149,9 +139,29 @@
         "price": "70g",
         "profit": "+42g",
         "profit_pos": true,
-        "volume": "75",
+        "volume": "81",
         "change_class": "chg-up",
         "change_text": "▲ 5614% below median"
+      },
+      {
+        "name": "Tarnished Dawnlit Sentinel's Sabatons",
+        "sub": "ilvl 197",
+        "price": "67g",
+        "profit": "+40g",
+        "profit_pos": true,
+        "volume": "78",
+        "change_class": "chg-up",
+        "change_text": "▲ 795% below median"
+      },
+      {
+        "name": "Scout's Polished Skullcap",
+        "sub": "ilvl 197",
+        "price": "151g",
+        "profit": "+91g",
+        "profit_pos": true,
+        "volume": "74",
+        "change_class": "chg-up",
+        "change_text": "▲ 32% below median"
       },
       {
         "name": "Tarnished Dawnlit Corsair's Breeches",
@@ -159,19 +169,9 @@
         "price": "69g",
         "profit": "+41g",
         "profit_pos": true,
-        "volume": "70",
+        "volume": "66",
         "change_class": "chg-up",
         "change_text": "▲ 335% below median"
-      },
-      {
-        "name": "Tarnished Dawnlit Sentinel's Girdle",
-        "sub": "ilvl 197",
-        "price": "80g",
-        "profit": "+48g",
-        "profit_pos": true,
-        "volume": "63",
-        "change_class": "chg-up",
-        "change_text": "▲ 1537% below median"
       },
       {
         "name": "Tarnished Dawnlit Corsair's Tunic",
@@ -179,19 +179,9 @@
         "price": "100g",
         "profit": "+60g",
         "profit_pos": true,
-        "volume": "62",
+        "volume": "66",
         "change_class": "chg-up",
-        "change_text": "▲ 1897% below median"
-      },
-      {
-        "name": "Tarnished Dawnlit Sentinel's Handguards",
-        "sub": "ilvl 197",
-        "price": "88g",
-        "profit": "+53g",
-        "profit_pos": true,
-        "volume": "62",
-        "change_class": "chg-up",
-        "change_text": "▲ 127% below median"
+        "change_text": "▲ 1900% below median"
       },
       {
         "name": "Tarnished Dawnlit Corsair's Belt",
@@ -199,39 +189,49 @@
         "price": "70g",
         "profit": "+42g",
         "profit_pos": true,
-        "volume": "62",
+        "volume": "66",
         "change_class": "chg-up",
-        "change_text": "▲ 4864% below median"
+        "change_text": "▲ 609% below median"
       },
       {
-        "name": "Tarnished Dawnlit Sentinel's Hauberk",
+        "name": "Tarnished Dawnlit Sentinel's Girdle",
         "sub": "ilvl 197",
-        "price": "123g",
-        "profit": "+74g",
+        "price": "80g",
+        "profit": "+48g",
         "profit_pos": true,
-        "volume": "61",
+        "volume": "65",
         "change_class": "chg-up",
-        "change_text": "▲ 759% below median"
+        "change_text": "▲ 1537% below median"
+      },
+      {
+        "name": "Smuggler's Reinforced Hood",
+        "sub": "ilvl 197",
+        "price": "51g",
+        "profit": "+30g",
+        "profit_pos": true,
+        "volume": "63",
+        "change_class": "chg-up",
+        "change_text": "▲ 492% below median"
       }
     ],
     "Tailoring": [
-      {
-        "name": "Courtly Shoulders",
-        "sub": "ilvl 197",
-        "price": "100g",
-        "profit": "+65g",
-        "profit_pos": true,
-        "volume": "154",
-        "change_class": "chg-up",
-        "change_text": "▲ 50% below median"
-      },
       {
         "name": "Evercore Wrist Latch",
         "sub": "ilvl 197",
         "price": "149g",
         "profit": "+97g",
         "profit_pos": true,
-        "volume": "149",
+        "volume": "147",
+        "change_class": "chg-st",
+        "change_text": "— Stable"
+      },
+      {
+        "name": "Courtly Shoulders",
+        "sub": "ilvl 197",
+        "price": "100g",
+        "profit": "+65g",
+        "profit_pos": true,
+        "volume": "134",
         "change_class": "chg-st",
         "change_text": "— Stable"
       },
@@ -241,19 +241,29 @@
         "price": "60g",
         "profit": "+39g",
         "profit_pos": true,
-        "volume": "109",
+        "volume": "105",
         "change_class": "chg-up",
         "change_text": "▲ 557% below median"
       },
       {
+        "name": "Tarnished Dawnlit Spellbinder's Pads",
+        "sub": "ilvl 197",
+        "price": "60g",
+        "profit": "+39g",
+        "profit_pos": true,
+        "volume": "78",
+        "change_class": "chg-up",
+        "change_text": "▲ 263% below median"
+      },
+      {
         "name": "Courtly Wrists",
         "sub": "ilvl 197",
-        "price": "119g",
-        "profit": "+77g",
+        "price": "118g",
+        "profit": "+76g",
         "profit_pos": true,
-        "volume": "80",
+        "volume": "77",
         "change_class": "chg-up",
-        "change_text": "▲ 75% below median"
+        "change_text": "▲ 77% below median"
       },
       {
         "name": "Tarnished Dawnlit Spellbinder's Sash",
@@ -261,19 +271,9 @@
         "price": "70g",
         "profit": "+46g",
         "profit_pos": true,
-        "volume": "79",
+        "volume": "75",
         "change_class": "chg-up",
         "change_text": "▲ 1186% below median"
-      },
-      {
-        "name": "Tarnished Dawnlit Spellbinder's Pads",
-        "sub": "ilvl 197",
-        "price": "70g",
-        "profit": "+45g",
-        "profit_pos": true,
-        "volume": "77",
-        "change_class": "chg-up",
-        "change_text": "▲ 214% below median"
       },
       {
         "name": "Courtly Belt",
@@ -281,7 +281,7 @@
         "price": "200g",
         "profit": "+130g",
         "profit_pos": true,
-        "volume": "77",
+        "volume": "74",
         "change_class": "chg-up",
         "change_text": "▲ 599% below median"
       },
@@ -291,9 +291,9 @@
         "price": "100g",
         "profit": "+65g",
         "profit_pos": true,
-        "volume": "69",
+        "volume": "70",
         "change_class": "chg-up",
-        "change_text": "▲ 398% below median"
+        "change_text": "▲ 269% below median"
       },
       {
         "name": "Courtly Helm",
@@ -301,19 +301,19 @@
         "price": "74g",
         "profit": "+48g",
         "profit_pos": true,
-        "volume": "62",
+        "volume": "57",
         "change_class": "chg-st",
         "change_text": "— Stable"
       },
       {
-        "name": "Courtly Slippers",
+        "name": "Tarnished Dawnlit Spellbinder's Trousers",
         "sub": "ilvl 197",
-        "price": "124g",
-        "profit": "+80g",
+        "price": "89g",
+        "profit": "+58g",
         "profit_pos": true,
-        "volume": "59",
+        "volume": "57",
         "change_class": "chg-up",
-        "change_text": "▲ 57% below median"
+        "change_text": "▲ 7203% below median"
       }
     ],
     "Jewelcrafting": [
@@ -335,19 +335,9 @@
         "price": "2,200g",
         "profit": "+1,540g",
         "profit_pos": true,
-        "volume": "158",
+        "volume": "165",
         "change_class": "chg-st",
         "change_text": "— Stable"
-      },
-      {
-        "name": "Paper Zeppelin Kit",
-        "sub": "ilvl 1",
-        "price": "0g",
-        "profit": "+0g",
-        "profit_pos": true,
-        "volume": "85",
-        "change_class": "chg-up",
-        "change_text": "▲ 26% below median"
       },
       {
         "name": "Thermal Anvil",
@@ -365,7 +355,7 @@
         "price": "4g",
         "profit": "+2g",
         "profit_pos": true,
-        "volume": "71",
+        "volume": "64",
         "change_class": "chg-up",
         "change_text": "▲ 290% below median"
       },
@@ -376,6 +366,16 @@
         "profit": "+674g",
         "profit_pos": true,
         "volume": "35",
+        "change_class": "chg-st",
+        "change_text": "— Stable"
+      },
+      {
+        "name": "Dark Jade Focusing Lens",
+        "sub": "ilvl 28",
+        "price": "2,215g",
+        "profit": "+1,550g",
+        "profit_pos": true,
+        "volume": "25",
         "change_class": "chg-st",
         "change_text": "— Stable"
       },
@@ -410,10 +410,10 @@
         "change_text": "— Stable"
       },
       {
-        "name": "Tome of Illusions: Cataclysm",
+        "name": "Tome of Illusions: Draenor",
         "sub": "ilvl 1",
-        "price": "200g",
-        "profit": "+140g",
+        "price": "1,001g",
+        "profit": "+701g",
         "profit_pos": true,
         "volume": "22",
         "change_class": "chg-st",
