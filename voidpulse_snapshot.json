@@ -1,13 +1,13 @@
 {
-  "listings": 111634,
-  "updated": "11:41:36 · 01 May 2026",
+  "listings": 110076,
+  "updated": "13:19:36 · 01 May 2026",
   "freshness": {
-    "market": "2026-05-01 11:41 UTC",
-    "consumables": "2026-05-01 11:41 UTC",
+    "market": "2026-05-01 13:19 UTC",
+    "consumables": "2026-05-01 13:19 UTC",
     "mplus": "—",
     "raid": "—",
-    "trinkets": "2026-05-01 11:41 UTC",
-    "gear": "2026-05-01 11:41 UTC"
+    "trinkets": "2026-05-01 13:19 UTC",
+    "gear": "2026-05-01 13:19 UTC"
   },
   "prof": {
     "Blacksmithing": [
@@ -17,7 +17,7 @@
         "price": "28g",
         "profit": "+15g",
         "profit_pos": true,
-        "volume": "328",
+        "volume": "325",
         "change_class": "chg-st",
         "change_text": "— Stable"
       },
@@ -34,12 +34,12 @@
       {
         "name": "Courtly Robes",
         "sub": "ilvl 197",
-        "price": "186g",
-        "profit": "+102g",
+        "price": "144g",
+        "profit": "+79g",
         "profit_pos": true,
         "volume": "179",
-        "change_class": "chg-st",
-        "change_text": "— Stable"
+        "change_class": "chg-up",
+        "change_text": "▲ 28% below median"
       },
       {
         "name": "Gleaming Copper Band",
@@ -57,7 +57,7 @@
         "price": "365g",
         "profit": "+201g",
         "profit_pos": true,
-        "volume": "122",
+        "volume": "121",
         "change_class": "chg-up",
         "change_text": "▲ 71% below median"
       },
@@ -77,7 +77,7 @@
         "price": "45g",
         "profit": "+25g",
         "profit_pos": true,
-        "volume": "112",
+        "volume": "108",
         "change_class": "chg-up",
         "change_text": "▲ 12346% below median"
       },
@@ -87,7 +87,7 @@
         "price": "28g",
         "profit": "+16g",
         "profit_pos": true,
-        "volume": "108",
+        "volume": "106",
         "change_class": "chg-up",
         "change_text": "▲ 16163% below median"
       },
@@ -97,7 +97,7 @@
         "price": "140g",
         "profit": "+77g",
         "profit_pos": true,
-        "volume": "97",
+        "volume": "96",
         "change_class": "chg-up",
         "change_text": "▲ 9066% below median"
       },
@@ -107,7 +107,7 @@
         "price": "62g",
         "profit": "+34g",
         "profit_pos": true,
-        "volume": "91",
+        "volume": "90",
         "change_class": "chg-up",
         "change_text": "▲ 3944% below median"
       }
@@ -129,7 +129,7 @@
         "price": "45g",
         "profit": "+27g",
         "profit_pos": true,
-        "volume": "112",
+        "volume": "108",
         "change_class": "chg-up",
         "change_text": "▲ 12346% below median"
       },
@@ -139,7 +139,7 @@
         "price": "62g",
         "profit": "+37g",
         "profit_pos": true,
-        "volume": "91",
+        "volume": "90",
         "change_class": "chg-up",
         "change_text": "▲ 3944% below median"
       },
@@ -159,7 +159,7 @@
         "price": "31g",
         "profit": "+18g",
         "profit_pos": true,
-        "volume": "85",
+        "volume": "84",
         "change_class": "chg-st",
         "change_text": "— Stable"
       },
@@ -179,7 +179,7 @@
         "price": "41g",
         "profit": "+24g",
         "profit_pos": true,
-        "volume": "75",
+        "volume": "74",
         "change_class": "chg-up",
         "change_text": "▲ 13671% below median"
       },
@@ -189,9 +189,9 @@
         "price": "39g",
         "profit": "+24g",
         "profit_pos": true,
-        "volume": "75",
+        "volume": "74",
         "change_class": "chg-up",
-        "change_text": "▲ 7554% below median"
+        "change_text": "▲ 8402% below median"
       },
       {
         "name": "Tarnished Dawnlit Sentinel's Sabatons",
@@ -199,19 +199,19 @@
         "price": "67g",
         "profit": "+40g",
         "profit_pos": true,
-        "volume": "75",
+        "volume": "73",
         "change_class": "chg-up",
         "change_text": "▲ 2876% below median"
       },
       {
         "name": "Tarnished Dawnlit Corsair's Tunic",
         "sub": "ilvl 197",
-        "price": "38g",
-        "profit": "+23g",
+        "price": "35g",
+        "profit": "+21g",
         "profit_pos": true,
         "volume": "69",
         "change_class": "chg-up",
-        "change_text": "▲ 14558% below median"
+        "change_text": "▲ 16045% below median"
       }
     ],
     "Tailoring": [
@@ -221,7 +221,7 @@
         "price": "28g",
         "profit": "+18g",
         "profit_pos": true,
-        "volume": "328",
+        "volume": "325",
         "change_class": "chg-st",
         "change_text": "— Stable"
       },
@@ -238,12 +238,12 @@
       {
         "name": "Courtly Robes",
         "sub": "ilvl 197",
-        "price": "186g",
-        "profit": "+121g",
+        "price": "144g",
+        "profit": "+94g",
         "profit_pos": true,
         "volume": "179",
-        "change_class": "chg-st",
-        "change_text": "— Stable"
+        "change_class": "chg-up",
+        "change_text": "▲ 28% below median"
       },
       {
         "name": "Courtly Cloak",
@@ -251,7 +251,7 @@
         "price": "20g",
         "profit": "+13g",
         "profit_pos": true,
-        "volume": "89",
+        "volume": "88",
         "change_class": "chg-up",
         "change_text": "▲ 201% below median"
       },
@@ -261,7 +261,7 @@
         "price": "45g",
         "profit": "+29g",
         "profit_pos": true,
-        "volume": "83",
+        "volume": "82",
         "change_class": "chg-up",
         "change_text": "▲ 12349% below median"
       },
@@ -281,9 +281,9 @@
         "price": "51g",
         "profit": "+33g",
         "profit_pos": true,
-        "volume": "77",
+        "volume": "76",
         "change_class": "chg-up",
-        "change_text": "▲ 9215% below median"
+        "change_text": "▲ 9217% below median"
       },
       {
         "name": "Tarnished Dawnlit Spellbinder's Robe",
@@ -291,19 +291,9 @@
         "price": "50g",
         "profit": "+32g",
         "profit_pos": true,
-        "volume": "73",
+        "volume": "69",
         "change_class": "chg-up",
         "change_text": "▲ 8301% below median"
-      },
-      {
-        "name": "Courtly Pants",
-        "sub": "ilvl 197",
-        "price": "100g",
-        "profit": "+65g",
-        "profit_pos": true,
-        "volume": "72",
-        "change_class": "chg-up",
-        "change_text": "▲ 72% below median"
       },
       {
         "name": "Tarnished Dawnlit Spellbinder's Trousers",
@@ -311,9 +301,19 @@
         "price": "40g",
         "profit": "+26g",
         "profit_pos": true,
-        "volume": "70",
+        "volume": "69",
         "change_class": "chg-up",
         "change_text": "▲ 12399% below median"
+      },
+      {
+        "name": "Courtly Pants",
+        "sub": "ilvl 197",
+        "price": "99g",
+        "profit": "+65g",
+        "profit_pos": true,
+        "volume": "69",
+        "change_class": "chg-up",
+        "change_text": "▲ 73% below median"
       }
     ],
     "Jewelcrafting": [
@@ -330,22 +330,12 @@
     ],
     "Alchemy": [
       {
-        "name": "Paper Zeppelin Kit",
-        "sub": "ilvl 1",
-        "price": "0g",
-        "profit": "+0g",
-        "profit_pos": true,
-        "volume": "78",
-        "change_class": "chg-up",
-        "change_text": "▲ 1300% below median"
-      },
-      {
         "name": "Reflecting Prism",
         "sub": "ilvl 1",
         "price": "2g",
         "profit": "+1g",
         "profit_pos": true,
-        "volume": "62",
+        "volume": "61",
         "change_class": "chg-up",
         "change_text": "▲ 29% below median"
       },
@@ -365,7 +355,7 @@
         "price": "56g",
         "profit": "+39g",
         "profit_pos": true,
-        "volume": "27",
+        "volume": "26",
         "change_class": "chg-st",
         "change_text": "— Stable"
       },
@@ -386,16 +376,6 @@
         "profit": "+1,680g",
         "profit_pos": true,
         "volume": "24",
-        "change_class": "chg-st",
-        "change_text": "— Stable"
-      },
-      {
-        "name": "Tome of Illusions: Azeroth",
-        "sub": "ilvl 1",
-        "price": "1,600g",
-        "profit": "+1,120g",
-        "profit_pos": true,
-        "volume": "22",
         "change_class": "chg-st",
         "change_text": "— Stable"
       }
@@ -4836,15 +4816,15 @@
     "flasks": [
       {
         "name": "Flask of the Blood Knights",
-        "price": "31.4k g",
-        "change_class": "chg-st",
-        "change_text": "— Stable",
+        "price": "29.4k g",
+        "change_class": "chg-up",
+        "change_text": "▲ 25% below median",
         "source": "AH",
         "type": "Flask"
       },
       {
         "name": "Flask of the Magisters",
-        "price": "32.4k g",
+        "price": "19.4k g",
         "change_class": "chg-st",
         "change_text": "— Stable",
         "source": "AH",
