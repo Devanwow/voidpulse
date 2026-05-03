@@ -1,13 +1,13 @@
 {
-  "listings": 120250,
-  "updated": "10:57:05 · 03 May 2026",
+  "listings": 119824,
+  "updated": "11:43:05 · 03 May 2026",
   "freshness": {
-    "market": "2026-05-03 10:57 UTC",
-    "consumables": "2026-05-03 10:57 UTC",
+    "market": "2026-05-03 11:43 UTC",
+    "consumables": "2026-05-03 11:43 UTC",
     "mplus": "—",
     "raid": "—",
-    "trinkets": "2026-05-03 10:57 UTC",
-    "gear": "2026-05-03 10:57 UTC"
+    "trinkets": "2026-05-03 11:43 UTC",
+    "gear": "2026-05-03 11:43 UTC"
   },
   "prof": {
     "Blacksmithing": [
@@ -17,7 +17,7 @@
         "price": "120g",
         "profit": "+66g",
         "profit_pos": true,
-        "volume": "256",
+        "volume": "254",
         "change_class": "chg-st",
         "change_text": "— Stable"
       },
@@ -27,7 +27,7 @@
         "price": "40g",
         "profit": "+22g",
         "profit_pos": true,
-        "volume": "151",
+        "volume": "152",
         "change_class": "chg-up",
         "change_text": "▲ 149% below median"
       },
@@ -37,7 +37,7 @@
         "price": "395g",
         "profit": "+217g",
         "profit_pos": true,
-        "volume": "149",
+        "volume": "150",
         "change_class": "chg-st",
         "change_text": "— Stable"
       },
@@ -67,7 +67,7 @@
         "price": "362g",
         "profit": "+199g",
         "profit_pos": true,
-        "volume": "100",
+        "volume": "101",
         "change_class": "chg-up",
         "change_text": "▲ 72% below median"
       },
@@ -77,7 +77,7 @@
         "price": "125g",
         "profit": "+69g",
         "profit_pos": true,
-        "volume": "91",
+        "volume": "90",
         "change_class": "chg-up",
         "change_text": "▲ 510% below median"
       },
@@ -97,19 +97,19 @@
         "price": "50g",
         "profit": "+27g",
         "profit_pos": true,
-        "volume": "83",
+        "volume": "80",
         "change_class": "chg-up",
-        "change_text": "▲ 6103% below median"
+        "change_text": "▲ 6569% below median"
       },
       {
-        "name": "Tarnished Dawnlit Sentinel's Girdle",
+        "name": "Tarnished Dawnlit Commander's Greatbelt",
         "sub": "ilvl 197",
-        "price": "55g",
-        "profit": "+30g",
+        "price": "47g",
+        "profit": "+26g",
         "profit_pos": true,
-        "volume": "82",
+        "volume": "80",
         "change_class": "chg-up",
-        "change_text": "▲ 440% below median"
+        "change_text": "▲ 4377% below median"
       }
     ],
     "Leatherworking": [
@@ -124,16 +124,6 @@
         "change_text": "— Stable"
       },
       {
-        "name": "Tarnished Dawnlit Sentinel's Girdle",
-        "sub": "ilvl 197",
-        "price": "55g",
-        "profit": "+33g",
-        "profit_pos": true,
-        "volume": "82",
-        "change_class": "chg-up",
-        "change_text": "▲ 440% below median"
-      },
-      {
         "name": "Evercore Binding",
         "sub": "ilvl 197",
         "price": "35g",
@@ -144,24 +134,24 @@
         "change_text": "▲ 1328% below median"
       },
       {
+        "name": "Tarnished Dawnlit Sentinel's Girdle",
+        "sub": "ilvl 197",
+        "price": "55g",
+        "profit": "+33g",
+        "profit_pos": true,
+        "volume": "79",
+        "change_class": "chg-up",
+        "change_text": "▲ 440% below median"
+      },
+      {
         "name": "Tarnished Dawnlit Sentinel's Chausses",
         "sub": "ilvl 197",
         "price": "70g",
         "profit": "+42g",
         "profit_pos": true,
-        "volume": "75",
+        "volume": "74",
         "change_class": "chg-up",
-        "change_text": "▲ 5638% below median"
-      },
-      {
-        "name": "Tarnished Dawnlit Corsair's Tunic",
-        "sub": "ilvl 197",
-        "price": "65g",
-        "profit": "+39g",
-        "profit_pos": true,
-        "volume": "68",
-        "change_class": "chg-up",
-        "change_text": "▲ 8509% below median"
+        "change_text": "▲ 7044% below median"
       },
       {
         "name": "Tarnished Dawnlit Sentinel's Armguards",
@@ -169,19 +159,19 @@
         "price": "35g",
         "profit": "+21g",
         "profit_pos": true,
-        "volume": "67",
+        "volume": "68",
         "change_class": "chg-up",
         "change_text": "▲ 2754% below median"
       },
       {
-        "name": "Tarnished Dawnlit Sentinel's Hauberk",
+        "name": "Tarnished Dawnlit Corsair's Tunic",
         "sub": "ilvl 197",
-        "price": "49g",
-        "profit": "+29g",
+        "price": "65g",
+        "profit": "+39g",
         "profit_pos": true,
-        "volume": "65",
+        "volume": "66",
         "change_class": "chg-up",
-        "change_text": "▲ 3773% below median"
+        "change_text": "▲ 8508% below median"
       },
       {
         "name": "Scout's Polished Skullcap",
@@ -189,9 +179,19 @@
         "price": "71g",
         "profit": "+43g",
         "profit_pos": true,
-        "volume": "64",
+        "volume": "65",
         "change_class": "chg-up",
         "change_text": "▲ 26% below median"
+      },
+      {
+        "name": "Tarnished Dawnlit Sentinel's Hauberk",
+        "sub": "ilvl 197",
+        "price": "49g",
+        "profit": "+29g",
+        "profit_pos": true,
+        "volume": "62",
+        "change_class": "chg-up",
+        "change_text": "▲ 3773% below median"
       },
       {
         "name": "Tarnished Dawnlit Corsair's Bracers",
@@ -199,7 +199,7 @@
         "price": "99g",
         "profit": "+59g",
         "profit_pos": true,
-        "volume": "63",
+        "volume": "62",
         "change_class": "chg-up",
         "change_text": "▲ 2425% below median"
       },
@@ -209,7 +209,7 @@
         "price": "30g",
         "profit": "+18g",
         "profit_pos": true,
-        "volume": "60",
+        "volume": "57",
         "change_class": "chg-up",
         "change_text": "▲ 6570% below median"
       }
@@ -221,7 +221,7 @@
         "price": "120g",
         "profit": "+78g",
         "profit_pos": true,
-        "volume": "256",
+        "volume": "254",
         "change_class": "chg-st",
         "change_text": "— Stable"
       },
@@ -231,7 +231,7 @@
         "price": "40g",
         "profit": "+26g",
         "profit_pos": true,
-        "volume": "151",
+        "volume": "152",
         "change_class": "chg-up",
         "change_text": "▲ 149% below median"
       },
@@ -251,7 +251,7 @@
         "price": "125g",
         "profit": "+82g",
         "profit_pos": true,
-        "volume": "91",
+        "volume": "90",
         "change_class": "chg-up",
         "change_text": "▲ 510% below median"
       },
@@ -271,7 +271,7 @@
         "price": "42g",
         "profit": "+27g",
         "profit_pos": true,
-        "volume": "77",
+        "volume": "76",
         "change_class": "chg-up",
         "change_text": "▲ 435% below median"
       },
@@ -281,7 +281,7 @@
         "price": "41g",
         "profit": "+27g",
         "profit_pos": true,
-        "volume": "73",
+        "volume": "70",
         "change_class": "chg-up",
         "change_text": "▲ 9904% below median"
       },
@@ -291,7 +291,7 @@
         "price": "61g",
         "profit": "+40g",
         "profit_pos": true,
-        "volume": "70",
+        "volume": "68",
         "change_class": "chg-up",
         "change_text": "▲ 4420% below median"
       },
@@ -301,7 +301,7 @@
         "price": "49g",
         "profit": "+32g",
         "profit_pos": true,
-        "volume": "65",
+        "volume": "64",
         "change_class": "chg-up",
         "change_text": "▲ 2420% below median"
       },
@@ -358,16 +358,6 @@
         "volume": "73",
         "change_class": "chg-up",
         "change_text": "▲ 25% below median"
-      },
-      {
-        "name": "Wormhole Generator: Pandaria",
-        "sub": "ilvl 35",
-        "price": "3,144g",
-        "profit": "+2,201g",
-        "profit_pos": true,
-        "volume": "24",
-        "change_class": "chg-st",
-        "change_text": "— Stable"
       }
     ],
     "Enchanting": [
