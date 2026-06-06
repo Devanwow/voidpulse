@@ -1,13 +1,13 @@
 {
   "listings": 109238,
-  "updated": "08:33:30 · 06 Jun 2026",
+  "updated": "10:53:46 · 06 Jun 2026",
   "freshness": {
     "market": "2026-06-06 08:33 UTC",
     "consumables": "2026-06-06 08:33 UTC",
     "mplus": "—",
     "raid": "—",
-    "trinkets": "2026-06-06 08:33 UTC",
-    "gear": "2026-06-06 08:33 UTC"
+    "trinkets": "2026-06-06 10:53 UTC",
+    "gear": "2026-06-06 10:53 UTC"
   },
   "prof": {
     "Blacksmithing": [
@@ -4816,10 +4816,10 @@
       },
       {
         "name": "Amani Extract",
-        "price": "50.0k g",
+        "price": "Not listed",
         "change_class": "chg-st",
-        "change_text": "— Stable",
-        "source": "AH",
+        "change_text": "— No AH data",
+        "source": "—",
         "type": "Health Potion"
       }
     ],
@@ -4834,10 +4834,10 @@
       },
       {
         "name": "Flask of the Magisters",
-        "price": "75.0k g",
+        "price": "Not listed",
         "change_class": "chg-st",
-        "change_text": "— Stable",
-        "source": "AH",
+        "change_text": "— No AH data",
+        "source": "—",
         "type": "Flask"
       },
       {
