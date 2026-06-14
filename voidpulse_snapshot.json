@@ -1,13 +1,13 @@
 {
   "listings": 116171,
-  "updated": "18:15:14 · 14 Jun 2026",
+  "updated": "20:06:42 · 14 Jun 2026",
   "freshness": {
     "market": "2026-06-14 18:15 UTC",
     "consumables": "2026-06-14 18:15 UTC",
     "mplus": "—",
     "raid": "—",
-    "trinkets": "2026-06-14 18:15 UTC",
-    "gear": "2026-06-14 18:15 UTC"
+    "trinkets": "2026-06-14 20:06 UTC",
+    "gear": "2026-06-14 20:06 UTC"
   },
   "prof": {
     "Blacksmithing": [
@@ -4856,10 +4856,10 @@
     "flasks": [
       {
         "name": "Flask of the Blood Knights",
-        "price": "30.0k g",
-        "change_class": "chg-up",
-        "change_text": "▲ 33% below median",
-        "source": "AH",
+        "price": "Not listed",
+        "change_class": "chg-st",
+        "change_text": "— No AH data",
+        "source": "—",
         "type": "Flask"
       },
       {
@@ -4880,18 +4880,18 @@
       },
       {
         "name": "Flask of Thalassian Resistance",
-        "price": "88.9k g",
-        "change_class": "chg-up",
-        "change_text": "▲ 68% below median",
-        "source": "AH",
+        "price": "Not listed",
+        "change_class": "chg-st",
+        "change_text": "— No AH data",
+        "source": "—",
         "type": "Flask"
       },
       {
         "name": "Vicious Thalassian Flask of Honor",
-        "price": "88.9k g",
-        "change_class": "chg-up",
-        "change_text": "▲ 68% below median",
-        "source": "AH",
+        "price": "Not listed",
+        "change_class": "chg-st",
+        "change_text": "— No AH data",
+        "source": "—",
         "type": "Flask (PvP)"
       }
     ],
